@@ -103,11 +103,12 @@ onMounted(()=>{
                 width:100px;
                 display: flex;    
                 border-radius: 20px;
+                box-shadow: 5px 5px 20px #f8f8f8;
 
                 button{
 
                 span{
-                    opacity: 0.7;
+                    opacity: 0.9;
                     display: block;  
                     transition-timing-function: ease-in-out;
                     transition-duration: 0.3s;
