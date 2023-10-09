@@ -1,4 +1,5 @@
 <template>
+  <div class="header-wrap">
     <div class="header">
       <div class="logo">
           <img src="/logo.png" />
@@ -6,11 +7,16 @@
       </div>
       <div class="menu"></div>
     </div>
+  </div>
   </template>
   <style lang="scss">
+  .header-wrap{
+    width:100%;
+    background:#f8f8f8;
+    
   .header {
     display: flex;
-    max-width:1920px;
+    max-width:1400px;
     padding:0 30px;
     margin:0 auto;
     height: 60px;
@@ -31,4 +37,5 @@
       }
     }
   }
+}
   </style>

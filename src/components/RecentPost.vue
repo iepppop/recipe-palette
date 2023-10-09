@@ -68,10 +68,9 @@ onMounted(()=>{
     }
 
     .content{
-        max-width:1920px;
-        margin:0 auto;
+        width:1400px;
+        margin:50px auto 0 auto;
         padding:0 30px;
-        margin:100px 0 0 0;
 
         ul{
             width: 100%;
