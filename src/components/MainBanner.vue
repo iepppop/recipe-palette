@@ -19,14 +19,8 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-// import { useCommonStore } from "../stores/common"
 const recipeName = ref(['레','시','피']);
-// const data = ref([]);
 
-// const store = useCommonStore();
-// onMounted(()=>{
-
-// })
 
 </script>
 <style lang="scss">

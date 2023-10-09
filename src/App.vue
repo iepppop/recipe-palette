@@ -2,8 +2,12 @@
 import { onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/Header.vue'
+
+// import { useCommonStore } from '@/stores/common.js'
+// const store = useCommonStore();
+
 onMounted(()=>{
-  console.log(import.meta.env.VITE_BASE_URL)
+
 })
 </script>
 
