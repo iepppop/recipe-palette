@@ -1,10 +1,12 @@
 <script setup>
-import MainBanner from '../components/MainBanner.vue';
+import MainBanner from '@/components/MainBanner.vue';
+import RecentPost from '@/components/RecentPost.vue';
 </script>
 <template>
 <div class="contain">
 <MainBanner />
 </div>
+<RecentPost/>
 </template>
 <style lang="scss">
 .contain{
