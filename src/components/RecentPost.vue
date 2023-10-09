@@ -1,6 +1,9 @@
 <template>
     <div class="recent-posts">
         <div class="title">
+            <div class="all-view">
+                <button><span>전체보기</span><svg width="13" fill="#737373" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg></button>
+            </div>
         <h1>최근 등록된 레시피</h1>
         <p>매일 업데이트 되는 다양한 레시피</p>
     </div>
@@ -54,6 +57,67 @@ onMounted(()=>{
 
     .title{
         text-align: center;
+        width:1400px;
+        position: relative;
+        margin: 0 auto;
+
+        .all-view{
+            cursor: pointer;
+            position:absolute;
+            top:50%;
+            right:0;
+            transform: translate(0,-50%);
+            border:1px solid #eee;
+            border-radius: 50%;
+            border:1px solid #eee;
+            width:40px;
+            height:40px;
+            transition: 0.3s ease-in-out;
+
+            button{
+                cursor: pointer;
+                padding:0 12px;
+                display: flex;
+                position: absolute;
+                width: max-content;
+                right:0;
+                top:50%;
+                transform: translate(0,-50%);
+                align-items: center;
+                gap:5px;        
+
+                svg{
+                    padding:1px 0 0 0;
+                    color:#3e3e3e;
+                    opacity: 0.7;
+                }
+
+                span{
+                    opacity: 0;
+                    color:#3e3e3e;
+                    font-weight: 600;
+                }
+            }
+
+            &:hover{
+                width:100px;
+                display: flex;    
+                border-radius: 20px;
+
+                button{
+
+                span{
+                    opacity: 0.7;
+                    display: block;  
+                    transition-timing-function: ease-in-out;
+                    transition-duration: 0.3s;
+                    transition-property: opacity;
+                    transition-delay: 250ms;
+                }
+            }
+            }
+        }
+
         h1{
         font-size:30px;
         font-weight: 700;
@@ -61,16 +125,16 @@ onMounted(()=>{
 
         p{
             font-size:16px;
-            margin:10px 0 0 0 ;
+            margin:7px 0 80px 0 ;
             font-weight: 600;
             color:#474747;
+            opacity: 0.7;
         }
     }
 
     .content{
         width:1400px;
         margin:50px auto 0 auto;
-        padding:0 30px;
 
         ul{
             width: 100%;
@@ -84,17 +148,10 @@ onMounted(()=>{
                 width:100%;
                 overflow: hidden;
                 cursor: pointer;
+                transition: 0.3s ease-in-out;
 
                 &:hover{
                     box-shadow: 5px 5px 20px #eee;
-                    transition: 0.3s ease-in-out;
-
-                    .image{
-                        img{
-                            scale:1.1;
-                            transition: 0.3s ease-in-out;
-                        }
-                    }
                 }
 
                 .image{
