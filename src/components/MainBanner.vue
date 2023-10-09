@@ -46,34 +46,6 @@ const getDataList = async () => {
     console.log(err)
   }
 }
-
-// const getRandomNumber = () => {
-//     const chars = "1234567890";
-//     return chars[Math.floor(Math.random() * chars.length)]
-// }
-
-// const shuffleAnimation = () => {
-//     totalNumber.value.forEach((num)=>{
-//         console.log(num)
-//     })
-
-//     let shuffles = 0;
-//     const maxShuffles  = 10;
-//     const intervalDuration = 500 / maxShuffles;
-
-//     let animationInterval = setInterval(()=>{
-//         if(shuffles >= maxShuffles){
-//             clearInterval(animationInterval);
-//             totalNumber.value.forEach((num,index)=>{
-//                 num = originalWords;
-//             })
-//         }
-//     })
-// }
-
-// onMounted(()=>{
-//     shuffleAnimation()
-// })
 </script>
 <style lang="scss">
 .main-banner {
