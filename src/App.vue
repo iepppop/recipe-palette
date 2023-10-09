@@ -1,6 +1,10 @@
 <script setup>
+import { onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/Header.vue'
+onMounted(()=>{
+  console.log(import.meta.env.VITE_BASE_URL)
+})
 </script>
 
 <template>
