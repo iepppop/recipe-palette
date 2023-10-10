@@ -1,9 +1,6 @@
 <template>
     <div class="category-menu">
     <h1>카테고리 별로 다양한 요리를 만나보세요</h1>
-    <!-- <div class="category-btn-wrap">
-        <button v-for="cate in cateMenuName" :key="cate">{{ cate }}</button>
-    </div> -->
     <div class="category-wrap">
         <button v-for="cate in cateList" :key="cate">
         <div class="image">
