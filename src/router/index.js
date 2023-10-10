@@ -15,7 +15,15 @@ const router = createRouter({
       name: 'list',
       component: ListView
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 };
+  },
 })
+
+router.afterEach((to, from) => {
+  window.scrollTo(0, 0);
+});
+
 
 export default router
