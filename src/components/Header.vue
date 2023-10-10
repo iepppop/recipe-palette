@@ -1,7 +1,7 @@
 <template>
-  <div class="header-wrap">
-    <div class="header">
-      <div class="logo">
+  <div class="header-wrap" :style="[this.$route.path === '/' ? {background:'#f8f8f8'}: {  background:'transparent'}]">
+    <div class="header" :style="[this.$route.path === '/' ? {background:'#f8f8f8'}: {  background:'transparent'}]">
+      <div class="logo" @click="this.$router.push('/')">
           <img src="/logo.png" />
           recipe palette
       </div>
@@ -17,9 +17,8 @@
   .header {
     display: flex;
     max-width:1400px;
-    padding:0 30px;
     margin:0 auto;
-    height: 60px;
+    height:70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,6 +29,7 @@
       font-weight: 900;
       display: flex;
       align-items: center;
+      cursor: pointer;
   
       img{
           width:13px;
