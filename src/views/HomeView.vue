@@ -24,7 +24,7 @@ import CategoryMenu from '@/components/CategoryMenu.vue'
   background-position: top center;
 
   .mainbanner-wrap {
-    height: 99vh;
+    height: 95vh;
   }
 }
 </style>
