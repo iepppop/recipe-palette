@@ -71,7 +71,6 @@ const recentList = ref([])
 const isLoading = ref(false)
 const totalPage = ref(1)
 const currentPage = ref(1)
-const currentPageGroup = ref(1)
 
 const errorMsg = ref('')
 
@@ -92,7 +91,6 @@ const getDataList = async (currentPage) => {
     isLoading.value = false
   } catch (err) {
     isLoading.value = false
-    console.log(err)
   }
 }
 
@@ -111,11 +109,6 @@ const nextPage = (page) => {
   })
   getDataList(currentPage.value)
 
-  // currentPageGroup.value = parseInt(page) + 1;
-  //     router.push({
-  //         query: { page: currentPage.value },
-  //     });
-  //   getDataList(currentPage.value)
 }
 
 const currentPageStart = () => {
