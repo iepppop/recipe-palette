@@ -1,7 +1,7 @@
 <template>
     <div class="list-item">
         <div class="content">
-        <ul v-if="isLoading">
+        <ul v-if="!isLoading">
             <li v-for="(item,index) in props.data" :key="index">
                 <div class="image">
                     <img :src="item.ATT_FILE_NO_MK" :alt="item.RCP_NM"/>
@@ -54,7 +54,7 @@ const props = defineProps({
 .list-item{
     .content{
         width:1400px;
-        margin:50px auto 0 auto;
+        margin:0 auto;
 
         .skeleton{
             .image{
