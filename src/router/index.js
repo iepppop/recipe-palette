@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ListView from '../views/ListView.vue'
+import HomeView from '@/views/HomeView.vue'
+import ListView from '@/views/ListView.vue'
+import FoodView from '@/views/FoodView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,12 @@ const router = createRouter({
       path: '/list',
       name: 'list',
       component: ListView
+    },
+    {
+      path: '/food/:idx',
+      name:'food',
+      component: FoodView,
+      props: true
     }
   ],
   scrollBehavior(to, from, savedPosition) {
