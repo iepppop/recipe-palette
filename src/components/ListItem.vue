@@ -2,7 +2,7 @@
     <div class="list-item">
         <div class="content">
         <ul v-if="!isLoading">
-            <li v-for="(item,index) in props.data" :key="index">
+            <li v-for="(item,index) in props.data" :key="index" @click="movePage(item)">
                 <div class="image">
                     <img :src="item.ATT_FILE_NO_MK" :alt="item.RCP_NM"/>
                 </div>
@@ -49,6 +49,14 @@ const props = defineProps({
   isLoading: Boolean,
   dataLength: Number
 });
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const movePage = (data) => {
+    window.sessionStorage.setItem('info', JSON.stringify(data));
+    router.push(`/food/${data.RCP_SEQ}`);
+}
 </script>
 <style lang="scss">
 .list-item{
@@ -145,7 +153,13 @@ const props = defineProps({
                     overflow: hidden;
                     height: 175px;
                     display: flex;
-                    align-items: center
+                    align-items: center;
+                    width:100%;
+
+                    img{
+                        width:100%;
+                        object-fit: cover;
+                    }
                 }
                 
                 .explain{
