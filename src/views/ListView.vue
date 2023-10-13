@@ -1,8 +1,7 @@
 <template>
   <div class="list-page">
     <div class="list-wrap">
-      {{ errorMsg }}
-      <ListItem :isLoading="isLoading" :data="recentList" :dataLength="20" />
+      <ListItem :isLoading="isLoading" :data="recentList" :dataLength="20" :totalCount="totalCount ? totalCount : ''"/>
       <div class="pagination">
         <button @click="prevPage(route.query.page)" :disabled="isPrevPageDisabled" class="prev">
           <svg
@@ -72,7 +71,8 @@ const isLoading = ref(false)
 const totalPage = ref(1)
 const currentPage = ref(1)
 
-const errorMsg = ref('')
+const searchData = ref([]);
+const totalCount = ref(0);
 
 const getDataList = async (currentPage) => {
   try {
@@ -90,25 +90,61 @@ const getDataList = async (currentPage) => {
     recentList.value = response.data.COOKRCP01.row
     isLoading.value = false
   } catch (err) {
+    console.log(err)
     isLoading.value = false
+  }
+}
+
+const getSearchData = async(currentPage) => {
+  try{
+    const total = parseInt(window.sessionStorage.getItem('total'))
+    if (currentPage <= total) {
+      isLoading.value = true
+    }
+
+    const perPage = 20
+    const start = (currentPage - 1) * perPage + 1
+    const end = currentPage * perPage
+
+    const response = await axios.get(`COOKRCP01/json/${start}/${end}/RCP_NM=${route.query.search}`);
+    totalCount.value = response.data.COOKRCP01.total_count;
+    totalPage.value = Math.ceil(response.data.COOKRCP01.total_count / 20)
+    window.sessionStorage.setItem('total', totalPage.value)
+    recentList.value = response.data.COOKRCP01.row
+    isLoading.value = false
+  }catch(err){
+    console.log(err)
   }
 }
 
 const prevPage = (page) => {
   currentPage.value = parseInt(page) - 1
-  router.push({
+  if(route.query.search){
+    router.push({
+    query: { search: route.query.search , page: currentPage.value}
+  })
+  getSearchData(currentPage.value)
+  }else{
+    router.push({
     query: { page: currentPage.value }
   })
   getDataList(currentPage.value)
+  }
 }
 
 const nextPage = (page) => {
   currentPage.value = parseInt(page) + 1
-  router.push({
+  if(route.query.search){
+    router.push({
+    query: { search: route.query.search , page: currentPage.value}
+  })
+  getSearchData(currentPage.value)
+  }else{
+    router.push({
     query: { page: currentPage.value }
   })
   getDataList(currentPage.value)
-
+  }
 }
 
 const currentPageStart = () => {
@@ -128,10 +164,17 @@ const pageNumbers = () => {
 
 const changePage = (page) => {
   currentPage.value = page
-  router.push({
+  if(route.query.search){
+    router.push({
+    query: { search: route.query.search , page: currentPage.value}
+  })
+  getSearchData(currentPage.value)
+  }else{
+    router.push({
     query: { page }
   })
-  getDataList(page)
+  getDataList(currentPage.value)
+  }
 }
 
 const isNextPageDisabled = computed(() => {
@@ -150,7 +193,12 @@ onMounted(() => {
   } else {
     currentPage.value = parseInt(route.query.page)
   }
-  getDataList(currentPage.value)
+
+  if(route.query.search){
+    getSearchData(currentPage.value)
+  }else{
+    getDataList(currentPage.value)
+  }
 })
 </script>
 <style lang="scss">
