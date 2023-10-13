@@ -11,8 +11,8 @@
       <span v-for="num in totalNumber" :key="num" class="recipe-num">{{ num }}</span>
     </div>
     <div class="search-bar">
-      <input type="text" placeholder="지금 먹고 싶은 요리 이름을 검색해주세요." />
-      <button>
+      <input type="text" placeholder="지금 먹고 싶은 요리 이름을 검색해주세요." v-model="srhRecipeName"/>
+      <button @click="sendSrhData()">
         <svg
           width="20px"
           fill="#fff"
@@ -34,18 +34,19 @@
 </template>
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router';
 const recipeName = ref(['레', '시', '피'])
-
 const totalNumber = ref(['1', ',', '4', '2', '1', ',','3', '4', '2', ',', '3', '2', '4'])
+const srhRecipeName = ref('');
+const router = useRouter();
 
-const getDataList = async () => {
-  try {
-    const response = await axios.get('COOKRCP01/json/1/10')
-    recentList.value = response.data.COOKRCP01.row
-  } catch (err) {
-    console.log(err)
-  }
+const sendSrhData = () => {
+  router.push({
+    path: '/list',
+    query: { search: `${srhRecipeName.value}` , page: 1}
+  })
 }
+
 </script>
 <style lang="scss">
 .main-banner {
