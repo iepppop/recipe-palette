@@ -1,6 +1,13 @@
 <template>
     <div class="list-item">
-        <div class="content">
+        <div class="srh-view" v-show="$route.query.search && props.totalCount">
+            <span>'{{ $route.query.search }}' 검색 결과  </span>
+            <span>총 {{  props?.totalCount  }}개  </span>
+        </div>
+        <div class="content" v-if="!props.data">
+            <NoDataMessage />
+        </div>
+        <div class="content" v-else>
         <ul v-if="!isLoading">
             <li v-for="(item,index) in props.data" :key="index" @click="movePage(item)">
                 <div class="image">
@@ -44,12 +51,16 @@
     </div>
 </template>
 <script setup>
+import NoDataMessage from '@/components/NoDataMessage.vue'
+
 const props = defineProps({
   data: Array,
   isLoading: Boolean,
-  dataLength: Number
+  dataLength: Number,
+  totalCount: String
 });
 
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
@@ -57,9 +68,28 @@ const movePage = (data) => {
     window.sessionStorage.setItem('info', JSON.stringify(data));
     router.push(`/food/${data.RCP_SEQ}`);
 }
+
 </script>
 <style lang="scss">
 .list-item{
+    .srh-view{
+            margin:0 0 20px 0;
+            font-weight: 700;
+            font-size:17px;
+            display: flex;
+            align-items: flex-end;
+
+            span{
+                font-weight: 700;
+
+                &:last-child{
+                    margin: 0 0 0 20px;
+                    font-size:14px;
+                    font-weight: 500;
+                    color:gray;
+                }
+            }
+        }
     .content{
         width:1400px;
         margin:0 auto;
