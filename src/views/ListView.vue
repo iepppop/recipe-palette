@@ -2,7 +2,7 @@
   <div class="list-page">
     <div class="list-wrap">
       <ListItem :isLoading="isLoading" :data="recentList" :dataLength="20" :totalCount="totalCount ? totalCount : ''"/>
-      <div class="pagination">
+      <div class="pagination" v-show="recentList">
         <button @click="prevPage(route.query.page)" :disabled="isPrevPageDisabled" class="prev">
           <svg
             width="13"

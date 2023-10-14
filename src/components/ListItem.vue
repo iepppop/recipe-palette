@@ -15,14 +15,14 @@
                 </div>
                 <div class="explain">
                     <div class="text">
-                    <div class="tag" :class="item.RCP_PAT2 === '반찬' && 'side-dish'">{{ item.RCP_PAT2 }}</div>
+                    <div class="tag" :class="item.RCP_PAT2 === '반찬' ? 'side-dish' : item.RCP_PAT2 === '후식' ? 'dessert':  item.RCP_PAT2 === '일품' ? 'special' : '' ">{{ item.RCP_PAT2 }}</div>
                     <h2>{{ item.RCP_NM }}</h2>
                     <p>{{ item.RCP_NA_TIP }}</p>
                 </div>
                     <div class="sub">
                        칼로리 <span>{{  item.INFO_ENG }}kcal </span>
                        <div class="dot"></div>
-                        {{  item.RCP_WAY2 }}
+                    분류 <span>{{  item.RCP_WAY2 }}</span>
                     </div>
                 </div>
             </li>
@@ -238,6 +238,16 @@ const movePage = (data) => {
                     .side-dish{
                         color:var(--green);
                         background:#e7f7e7;
+                    }
+
+                    .dessert{
+                        color:#d893b8;
+                        background:#ffe6fa;
+                    }
+
+                    .special{
+                        background:#ffeaea;
+                        color:#ff3338;
                     }
 
                     h2{

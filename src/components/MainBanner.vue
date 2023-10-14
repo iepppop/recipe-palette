@@ -11,7 +11,7 @@
       <span v-for="num in totalNumber" :key="num" class="recipe-num">{{ num }}</span>
     </div>
     <div class="search-bar">
-      <input type="text" placeholder="지금 먹고 싶은 요리 이름을 검색해주세요." v-model="srhRecipeName"/>
+      <input type="text" placeholder="지금 먹고 싶은 요리 이름을 검색해주세요." v-model="srhRecipeName" @keyup.enter="sendSrhData()"/>
       <button @click="sendSrhData()">
         <svg
           width="20px"

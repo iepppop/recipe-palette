@@ -22,7 +22,7 @@
     align-items:center;
 
     .content{
-        margin:0 200px;
+        margin:0 184px;
         display: flex;
         gap:5px;
         flex-direction: column;
