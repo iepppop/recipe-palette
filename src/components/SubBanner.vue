@@ -12,7 +12,7 @@
 <style lang="scss">
 .sub-banner{
     max-width: 1400px;
-    margin:80px auto;
+    margin:60px auto 200px auto;
     background-image:url('@/assets/images/minibanner.png');
     background-color:#eef2cf;
     height: 150px;
