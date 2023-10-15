@@ -18,7 +18,6 @@ import CategoryMenu from '@/components/CategoryMenu.vue'
 .contain {
   background-image: url('@/assets/images/bg.png'), linear-gradient(to bottom, #f8f8f8, transparent);
   width: 100%;
-  height: 140vh;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top center;

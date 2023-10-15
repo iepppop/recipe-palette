@@ -161,6 +161,11 @@ const nextPage = (page) => {
     query: { search: route.query.search , page: currentPage.value}
   })
   getSearchData(currentPage.value)
+  }else if(route.query.category){
+    router.push({
+    query: { category: route.query.category , page: currentPage.value}
+  })
+  getCategoryData(currentPage.value)
   }else{
     router.push({
     query: { page: currentPage.value }
@@ -188,9 +193,14 @@ const changePage = (page) => {
   currentPage.value = page
   if(route.query.search){
     router.push({
-    query: { search: route.query.search , page: currentPage.value}
+    query: { search: route.query.search , page}
   })
   getSearchData(currentPage.value)
+  }else if(route.query.category){
+    router.push({
+    query: { category: route.query.category , page}
+  })
+  getCategoryData(currentPage.value)
   }else{
     router.push({
     query: { page }

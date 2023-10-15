@@ -12,10 +12,10 @@
 <style lang="scss">
 .sub-banner{
     max-width: 1400px;
-    margin:60px auto 200px auto;
+    margin:110px auto 30px auto;
     background-image:url('@/assets/images/minibanner.png');
     background-color:#eef2cf;
-    height: 150px;
+    height: 130px;
     border-radius: 15px;
     display: flex;
     justify-content:space-between;
@@ -32,12 +32,12 @@
         span{
             color:#1e1e1e;
         &:first-child{
-            font-size:16px;
+            font-size:14px;
             font-weight: 600;
         }
 
         &:last-child{
-            font-size:28px;
+            font-size:24px;
             font-weight: 700;
         }
     }

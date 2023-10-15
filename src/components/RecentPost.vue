@@ -1,7 +1,7 @@
 <template>
     <div class="recent-posts">
         <div class="title">
-            <div class="all-view" @click="router.push('/list')">
+            <div class="all-view" @click="router.push('/list?page=1')">
                 <button><span>전체보기</span><svg width="13" fill="#737373" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg></button>
             </div>
         <h1>최근 등록된 레시피</h1>

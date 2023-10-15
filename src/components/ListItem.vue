@@ -4,6 +4,10 @@
             <span>'{{ $route.query.search }}' 검색 결과  </span>
             <span>총 {{  props?.totalCount  }}개  </span>
         </div>
+        <div class="srh-view" v-show="$route.query.category && props.totalCount">
+            <span>'{{ $route.query.category === 국 ? '국&찌개' : `${$route.query.category}` }}' 카테고리 결과  </span>
+            <span>총 {{  props?.totalCount  }}개  </span>
+        </div>
         <div class="content" v-if="!props.data">
             <NoDataMessage />
         </div>
@@ -15,7 +19,7 @@
                 </div>
                 <div class="explain">
                     <div class="text">
-                    <div class="tag" :class="item.RCP_PAT2 === '반찬' ? 'side-dish' : item.RCP_PAT2 === '후식' ? 'dessert':  item.RCP_PAT2 === '일품' ? 'special' : '' ">{{ item.RCP_PAT2 }}</div>
+                    <div class="tag" :class="item.RCP_PAT2 === '반찬' ? 'side-dish' : item.RCP_PAT2 === '후식' ? 'dessert':  item.RCP_PAT2 === '일품' ? 'special' : item.RCP_PAT2 === '밥' ? 'rice' : '' ">{{ item.RCP_PAT2 }}</div>
                     <h2>{{ item.RCP_NM }}</h2>
                     <p>{{ item.RCP_NA_TIP }}</p>
                 </div>
@@ -241,13 +245,18 @@ const movePage = (data) => {
                     }
 
                     .dessert{
-                        color:#d893b8;
+                        color:#d576c2;
                         background:#ffe6fa;
                     }
 
                     .special{
                         background:#ffeaea;
                         color:#ff3338;
+                    }
+
+                    .rice{
+                        background:#eeeeee;
+                        color:#7a7874;
                     }
 
                     h2{
