@@ -14,6 +14,7 @@
     max-width: 1400px;
     margin:110px auto 30px auto;
     background-image:url('@/assets/images/minibanner.png');
+    background-position: center bottom;
     background-color:#eef2cf;
     height: 130px;
     border-radius: 15px;
@@ -22,7 +23,7 @@
     align-items:center;
 
     .content{
-        margin:0 184px;
+        margin:0 115px;
         display: flex;
         gap:5px;
         flex-direction: column;
@@ -31,14 +32,15 @@
 
         span{
             color:#1e1e1e;
+
         &:first-child{
             font-size:14px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         &:last-child{
             font-size:24px;
-            font-weight: 700;
+            font-weight: 800;
         }
     }
     }
