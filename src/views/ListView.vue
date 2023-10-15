@@ -117,6 +117,28 @@ const getSearchData = async(currentPage) => {
   }
 }
 
+const getCategoryData = async(currentPage)=>{
+  try{
+    const total = parseInt(window.sessionStorage.getItem('total'))
+    if (currentPage <= total) {
+      isLoading.value = true
+    }
+
+    const perPage = 20
+    const start = (currentPage - 1) * perPage + 1
+    const end = currentPage * perPage
+
+    const response = await axios.get(`COOKRCP01/json/${start}/${end}/RCP_PAT2=${route.query.category}`);
+    totalCount.value = response.data.COOKRCP01.total_count;
+    totalPage.value = Math.ceil(response.data.COOKRCP01.total_count / 20)
+    window.sessionStorage.setItem('total', totalPage.value)
+    recentList.value = response.data.COOKRCP01.row
+    isLoading.value = false
+  }catch(err){
+    console.log(err)
+  }
+}
+
 const prevPage = (page) => {
   currentPage.value = parseInt(page) - 1
   if(route.query.search){
@@ -186,16 +208,26 @@ const isPrevPageDisabled = computed(() => {
 })
 
 onMounted(() => {
-  if (!route.query.page) {
+  if(route.query.search && !route.query.page){
+    router.push({
+      query: { search: route.query.category , page: 1 }
+    })
+  }else if(route.query.category && !route.query.page){
+    router.push({
+      query: { category: route.query.category , page: 1 }
+    })
+  }else if(!route.query.page){
     router.push({
       query: { page: 1 }
-    })
-  } else {
-    currentPage.value = parseInt(route.query.page)
+   })
   }
+
+  currentPage.value = parseInt(route.query.page)
 
   if(route.query.search){
     getSearchData(currentPage.value)
+  }else if(route.query.category){
+    getCategoryData(currentPage.value)
   }else{
     getDataList(currentPage.value)
   }
