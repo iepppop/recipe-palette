@@ -5,7 +5,7 @@
             <span>총 {{  props?.totalCount  }}개  </span>
         </div>
         <div class="srh-view" v-show="$route.query.category && props.totalCount">
-            <span>'{{ $route.query.category === 국 ? '국&찌개' : `${$route.query.category}` }}' 카테고리 결과  </span>
+            <span>'{{ $route.query.category === '국'? '국&찌개' : `${$route.query.category}` }}' 카테고리 결과  </span>
             <span>총 {{  props?.totalCount  }}개  </span>
         </div>
         <div class="content" v-if="!props.data">

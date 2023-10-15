@@ -93,6 +93,7 @@ onMounted(()=>{
                 display: flex;    
                 border-radius: 20px;
                 box-shadow: 5px 5px 20px #f8f8f8;
+                background:#fff;
 
                 button{
 
