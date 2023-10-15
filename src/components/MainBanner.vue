@@ -8,7 +8,7 @@
       개수
     </h1>
     <div class="number">
-      <span v-for="num in totalNumber" :key="num" class="recipe-num">{{ num }}</span>
+      <span class="num-text">1,421,342,324</span>
     </div>
     <div class="search-bar">
       <input type="text" placeholder="지금 먹고 싶은 요리 이름을 검색해주세요." v-model="srhRecipeName" @keyup.enter="sendSrhData()"/>
@@ -30,15 +30,53 @@
       <p>매일 업데이트 되는 다양한 레시피</p>
       <p>레시피 팔레트에서 지금 바로 만나보세요.</p>
     </div>
+    <div class="plate">
+            <img src="@/assets/images/plate.png" alt="plate"/>
+        </div>  
   </div>
 </template>
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
+import baffle from 'baffle';
+import gsap from 'gsap';
+
 const recipeName = ref(['레', '시', '피'])
-const totalNumber = ref(['1', ',', '4', '2', '1', ',','3', '4', '2', ',', '3', '2', '4'])
 const srhRecipeName = ref('');
 const router = useRouter();
+
+const enterAnimation = () => {
+  const tl = gsap.timeline({paused: false});
+  tl.from('.main-banner h1',0.7,{
+    y:30,
+    opacity:0,
+    delay:1.3,
+  })
+  gsap.from('.plate',1,{
+    y:300,
+    opacity:0,
+    delay:0.5
+  })
+  gsap.from('.main-banner .number',1.2,{
+    y:30,
+    delay:1.3,
+    opacity:0,
+    onStart:()=>{
+      shuffle()
+    }
+  })
+  gsap.from('.search-bar',1,{
+    y:30,
+    opacity:0,
+    delay:1.3,
+  })
+  gsap.from('.sub-content p',1,{
+    y:30,
+    opacity:0,
+    delay:1.5,
+  })
+}
+
 
 const sendSrhData = () => {
   router.push({
@@ -47,6 +85,21 @@ const sendSrhData = () => {
   })
 }
 
+const shuffle = () =>{
+  const text = baffle('.num-text');
+  text.set({
+    characters: '1234567890',
+    exclude:',',
+    speed:100
+  });
+  text.start();
+  text.reveal(9000)
+}
+
+onMounted(()=>{
+  enterAnimation()
+  // shuffle()
+})
 </script>
 <style lang="scss">
 .main-banner {
@@ -56,6 +109,15 @@ const sendSrhData = () => {
   display: flex;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
+
+  .plate{
+    padding:0 10px 0 0;
+    margin:20px 0 140px 0;
+    width:90%;
+    height: 300px;
+    overflow: hidden;
+  }
 
   .sub-content {
     text-align: center;
