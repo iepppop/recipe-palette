@@ -70,8 +70,6 @@ const recentList = ref([])
 const isLoading = ref(false)
 const totalPage = ref(1)
 const currentPage = ref(1)
-
-const searchData = ref([]);
 const totalCount = ref(0);
 
 const getDataList = async (currentPage) => {

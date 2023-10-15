@@ -46,7 +46,6 @@ onMounted(()=>{
 
     .title{
         text-align: center;
-        width:1400px;
         position: relative;
         margin: 0 auto;
 
@@ -54,7 +53,6 @@ onMounted(()=>{
             cursor: pointer;
             position:absolute;
             top:50%;
-            right:0;
             transform: translate(0,-50%);
             border:1px solid #eee;
             border-radius: 50%;
@@ -110,7 +108,6 @@ onMounted(()=>{
         }
 
         h1{
-        font-size:30px;
         font-weight: 700;
         }
 
