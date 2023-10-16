@@ -62,6 +62,7 @@
 import ListItem from '@/components/ListItem.vue'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+
 const route = useRoute()
 const router = useRouter()
 const axios = inject('$axios')
@@ -242,6 +243,8 @@ onMounted(() => {
 })
 </script>
 <style lang="scss">
+@import '@/assets/_mixin.scss';
+
 .list-page {
   width: 100%;
 
@@ -283,5 +286,12 @@ onMounted(() => {
       }
     }
   }
+    /* 반응형 */
+    @include laptop {
+    .list-wrap {
+      width: 100%;
+    }
+  }
+
 }
 </style>

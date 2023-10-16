@@ -1,6 +1,8 @@
 <template>
   <div class="sub-banner-wrap">
     <div class="sub-banner">
+      <dlv class="minibgleft"></dlv>
+      <dlv class="minibgright"></dlv>
       <div class="content">
         <span>건강한 식재료, 신선한 야채</span>
         <span>다양하게 보고 선택하세요.</span>
@@ -18,7 +20,6 @@
 
   .sub-banner {
     width: 100%;
-    background-image: url('@/assets/images/minibanner.png');
     background-position: center bottom;
     background-color: #eef2cf;
     background-size: auto auto;
@@ -27,6 +28,32 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    .minibgleft{
+      background-image: url('@/assets/images/leftminibanner.png');
+      background-repeat: no-repeat;
+    background-position: left top; 
+    background-size: auto 100%; 
+    position: absolute;
+    width:100%;
+    height:130px;
+    top:0;
+    left:0;
+    }
+
+    .minibgright{
+    background-image: url('@/assets/images/rightminibanner.png');
+    background-repeat: no-repeat;
+    background-position: right top; 
+    background-size: auto 100%; 
+    position: absolute;
+    width:100%;
+    height:130px;
+    top:0;
+    left:0;
+    }
 
     .content {
       margin: 0 115px;
@@ -35,6 +62,8 @@
       flex-direction: column;
       height: 100%;
       justify-content: center;
+      position: relative;
+      z-index: 1;
 
       span {
         color: #1e1e1e;
@@ -57,6 +86,8 @@
       padding: 12px 18px;
       border-radius: 5px;
       font-weight: 700;
+      position: relative;
+      z-index: 1;
     }
   }
 
@@ -66,8 +97,8 @@
     padding: 0 30px;
 
     .sub-banner {
-      background-size: 0 100%;
-      background-repeat: no-repeat;
+      background-size: auto 100%;
+      // background-repeat: no-repeat;
     }
   }
 
@@ -105,6 +136,17 @@
         padding: 0 0px;
         margin:0;
         border-radius: 0;
+        background-position: right top; 
+        background-image: url('@/assets/images/rightminibanner.png');
+        background-size: auto 100%; 
+        background-repeat: no-repeat;
+        
+        .minibgleft{
+          display: none;
+        }
+        .minibgright{
+          display: none;
+        }
         
       .content {
         margin: 0 20px;

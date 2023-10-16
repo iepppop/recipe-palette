@@ -196,7 +196,7 @@ const movePage = (data) => {
         overflow: hidden;
         cursor: pointer;
         transition: 0.3s ease-in-out;
-        background:#fff;
+        background: #fff;
 
         &:hover {
           box-shadow: 5px 5px 20px #eee;
@@ -311,72 +311,101 @@ const movePage = (data) => {
   /* 반응형 */
   @include laptop {
     .content {
-        width: 100%;
-        padding:0 30px;
+      width: 100%;
+      padding: 0 30px;
 
-      
-        ul{
-            grid-template-columns: repeat(4, 1fr);
-        }
+      ul {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .srh-view{
+      width:100%;
+      padding:0 30px;
     }
   }
 
   @include laptopToTablet {
     .content {
-        ul{
-            grid-template-columns: repeat(3, 1fr);
-        }
+      ul {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
   }
 
-  @include tablet  {
+  @include tablet {
     .content {
-        ul{
-            grid-template-columns: repeat(2, 1fr);
-        }
+      ul {
+        grid-template-columns: repeat(2, 1fr);
+        
+      }
     }
   }
 
   @include iphone {
     .content {
-        padding:0px;
-        ul{
-            grid-template-columns: repeat(1, 1fr);
-            gap:0;
+      padding: 0px;
+      ul {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 0;
 
-            li{
-                border:none;
-                border-top:1px solid #eee;
-                border-radius: 0;
-                display: grid;
-                grid-template-columns: 1fr 2fr;
-                height: 180px;
+        li {
+          border: none;
+          border-top: 1px solid #eee;
+          border-radius: 0;
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+          height: 170px;
 
-                &:last-child{
-                    border-bottom:1px solid #eee;
-                }
-                .image{
-                    height:100%;
-                    border-right:1px solid #eee;
+          &:last-child {
+            border-bottom: 1px solid #eee;
+          }
 
-                    img{
-                      height: 100%;
-                    }
-                }
+          .explain{
+            .sub{
+              border:none;
+              padding:0 20px 0 20px;
+              font-size:12px;
             }
+          }
+
+          .image {
+            height: 100%;
+            border-right: 1px solid #eee;
+
+            img {
+              height: 100%;
+            }
+          }
         }
+      }
+    }
+
+    .srh-view{
+      span {
+        font-size: 15px;
+      &:last-child {
+        margin: 0 0 0 20px;
+        font-size: 12px;
+      }
+    }
     }
   }
 
   @include mobile {
     .content {
-        ul{
-            li{
-                .image{
-                    height:200px;
-                }
+      ul {
+        li {
+          grid-template-columns: 1fr 1.5fr;
+          height:140px;
+
+          .explain{
+            .sub{
+              display: none;
             }
+          }
         }
+      }
     }
   }
 }

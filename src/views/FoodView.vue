@@ -28,6 +28,7 @@
           <span>나트륨</span><span>{{ data.INFO_NA }}g</span>
         </li>
       </ul>
+      <div class="ingredient-wrap">
       <div class="ingredient">
         <div class="icon">
           <svg width="14" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
@@ -53,7 +54,9 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="food-recipe">
+      <div class="order">레시피 순서</div>
       <ul>
         <li v-for="(item, index) in extractedArray" :key="index">
           <div class="number">
@@ -125,6 +128,8 @@ onMounted(() => {
 })
 </script>
 <style lang="scss">
+@import '@/assets/_mixin.scss';
+
 #action {
   padding: 10px;
   font-size: 0.875em;
@@ -142,6 +147,10 @@ onMounted(() => {
 
   .food-recipe {
     width: 70%;
+
+    .order{
+      display:none;
+    }
 
     ul {
       li {
@@ -289,6 +298,101 @@ onMounted(() => {
         font-weight: 500;
       }
     }
+  }
+    /* 반응형 */
+    @include laptop {
+      width: 100%;
+      padding:0 30px;
+      gap:80px;
+
+      .food-info{
+        width:40%;
+      }
+  }
+
+  @include laptopToTablet {
+    gap:60px;
+
+    .food-info{
+        width:50%;
+      }
+  }
+
+  @include tablet {
+    flex-direction: column;
+    .food-info{
+      width:100%;
+      
+      .image{
+        max-height:450px;
+      }
+      }
+
+      .food-recipe{
+        width:100%;
+      }
+  }
+
+  @include tabletToMobile{
+    .food-info{
+      .image{
+        max-height:350px;
+      }
+      }
+  }
+
+  @include iphone {
+    padding:0;
+
+    .food-info{
+      .image{
+        border-radius: 0px;
+      }
+
+      .title,.content,.nutrient,.ingredient-wrap{
+        padding:0 20px;
+      }
+
+      .ingredient{
+        flex-direction: column;
+        gap:5px;
+      }
+
+      }
+
+      .food-recipe{
+
+        .order{
+      display:block;
+      padding:0 20px;
+      font-weight: 600;
+      margin:0 0 20px 0;
+    }
+        ul{
+          li{
+            flex-direction: column;
+            gap:0;
+
+            .number{
+              display: none;
+            }
+
+            .explain{
+              width:100%;
+              padding:0 20px;
+
+              .r-image{
+                width: 100%;
+                height:200px;
+              }
+
+              .text{
+                margin:0 0 40px 0;
+              }
+            }
+          }
+        }
+      }
   }
 }
 </style>
