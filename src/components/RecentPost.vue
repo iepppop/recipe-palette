@@ -48,8 +48,10 @@ onMounted(()=>{
         text-align: center;
         position: relative;
         margin: 0 auto;
+        width:1400px;
 
         .all-view{
+            right:0;
             cursor: pointer;
             position:absolute;
             top:50%;

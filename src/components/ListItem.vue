@@ -95,6 +95,7 @@ const movePage = (data) => {
             }
         }
     .content{
+        width: 1400px;
         margin:0 auto;
 
         .skeleton{
@@ -168,6 +169,7 @@ const movePage = (data) => {
             width: 100%;
             display: grid;
             gap:20px;
+            grid-template-columns: repeat(5, 1fr);
 
             li{
                 border:1px solid #f3f3f3;

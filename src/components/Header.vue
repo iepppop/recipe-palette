@@ -15,10 +15,10 @@
     background:#f8f8f8;
     
   .header {
+    width:1400px;
     display: flex;
     margin:0 auto;
     height:70px;
-    display: flex;
     align-items: center;
     justify-content: space-between;
     background-color:#f8f8f8;
