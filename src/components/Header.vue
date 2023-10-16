@@ -71,4 +71,13 @@
     }
   }
 }
+
+@include tabletToMobile{
+  .header-wrap{
+    .header{
+      padding:0 15px;
+      height: 50px;
+    }
+  }
+}
 </style>

@@ -382,6 +382,7 @@ const movePage = (data) => {
     }
 
     .srh-view{
+      padding:0 15px;
       span {
         font-size: 15px;
       &:last-child {

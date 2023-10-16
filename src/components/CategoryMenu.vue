@@ -219,9 +219,14 @@ const cateList = ref([
     .category-wrap {
       padding:0 10px;
       gap:10px;
+
       button{
         height:200px;
         padding:35px;
+
+        .image {
+        bottom: -20px;
+      }
       }
     }
   }

@@ -293,5 +293,16 @@ onMounted(() => {
     }
   }
 
+  @include iphone{
+    .list-wrap{
+      margin: 0 auto 100px auto;
+      .list-item{
+        .srh-view {
+          margin:0 0 15px 0;
+        }
+      }
+    }
+  }
+
 }
 </style>

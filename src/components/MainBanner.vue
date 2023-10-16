@@ -228,7 +228,7 @@ onMounted(() => {
     }
 
     .plate{
-      margin:0 0 50px 0;
+      margin:30px 0 50px 0;
     }
   }
 }
@@ -249,7 +249,7 @@ onMounted(() => {
 
     .plate{
       height: 250px;
-      margin:0 0 0px 0;
+      margin:25px 0 0px 0;
     }
   }
 }

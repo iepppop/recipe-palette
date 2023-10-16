@@ -29,31 +29,36 @@
         </li>
       </ul>
       <div class="ingredient-wrap">
-      <div class="ingredient">
-        <div class="icon">
-          <svg width="14" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-            <path
-              d="M416.07 272a160 160 0 10-160 160 160 160 0 00160-160zM142.12 91.21A46.67 46.67 0 00112 80l-2.79.08C83.66 81.62 64 104 64.07 131c0 13.21 4.66 19.37 10.88 27.23a4.55 4.55 0 003.24 1.77h.88a3.23 3.23 0 002.54-1.31L142.38 99a5.38 5.38 0 001.55-4 5.26 5.26 0 00-1.81-3.79zM369.88 91.21A46.67 46.67 0 01400 80l2.79.08C428.34 81.62 448 104 447.93 131c0 13.21-4.66 19.37-10.88 27.23a4.55 4.55 0 01-3.24 1.76h-.88a3.23 3.23 0 01-2.54-1.31L369.62 99a5.38 5.38 0 01-1.55-4 5.26 5.26 0 011.81-3.79z"
-              fill="none"
-              stroke="currentColor"
-              stroke-miterlimit="10"
-              stroke-width="32"
-            />
-            <path
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="32"
-              d="M256.07 160v112h-80M416.07 432l-40-40M96.07 432l40-40"
-            />
-          </svg>
-        </div>
-        <div class="box">
-          {{ data.RCP_PARTS_DTLS }}
+        <div class="ingredient">
+          <div class="icon">
+            <svg
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+              class="ionicon"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M416.07 272a160 160 0 10-160 160 160 160 0 00160-160zM142.12 91.21A46.67 46.67 0 00112 80l-2.79.08C83.66 81.62 64 104 64.07 131c0 13.21 4.66 19.37 10.88 27.23a4.55 4.55 0 003.24 1.77h.88a3.23 3.23 0 002.54-1.31L142.38 99a5.38 5.38 0 001.55-4 5.26 5.26 0 00-1.81-3.79zM369.88 91.21A46.67 46.67 0 01400 80l2.79.08C428.34 81.62 448 104 447.93 131c0 13.21-4.66 19.37-10.88 27.23a4.55 4.55 0 01-3.24 1.76h-.88a3.23 3.23 0 01-2.54-1.31L369.62 99a5.38 5.38 0 01-1.55-4 5.26 5.26 0 011.81-3.79z"
+                fill="none"
+                stroke="currentColor"
+                stroke-miterlimit="10"
+                stroke-width="32"
+              />
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="32"
+                d="M256.07 160v112h-80M416.07 432l-40-40M96.07 432l40-40"
+              />
+            </svg>
+          </div>
+          <div class="box">
+            {{ data.RCP_PARTS_DTLS }}
+          </div>
         </div>
       </div>
-    </div>
     </div>
     <div class="food-recipe">
       <div class="order">레시피 순서</div>
@@ -61,20 +66,20 @@
         <li v-for="(item, index) in extractedArray" :key="index">
           <div class="number">
             <div class="circle">
-                <svg width="100%" height="100%">
+              <svg width="100%" height="100%">
                 <circle
-                cx="50%"
-                cy="50%"
-                r="40%"
-                stroke="#e0e0e0"
-                stroke-width="1"
-                background="#fff"
-                fill="#fff"
+                  cx="50%"
+                  cy="50%"
+                  r="40%"
+                  stroke="#e0e0e0"
+                  stroke-width="1"
+                  background="#fff"
+                  fill="#fff"
                 />
-            </svg>
-            <span>
-              {{ index + 1 }}
-            </span>
+              </svg>
+              <span>
+                {{ index + 1 }}
+              </span>
             </div>
             <div class="solid"></div>
           </div>
@@ -148,48 +153,47 @@ onMounted(() => {
   .food-recipe {
     width: 70%;
 
-    .order{
-      display:none;
+    .order {
+      display: none;
     }
 
     ul {
       li {
         display: flex;
-        gap:60px;
+        gap: 60px;
 
-        .explain{
-            width:calc(100% - 100px);
+        .explain {
+          width: calc(100% - 100px);
         }
 
         .number {
           width: 100px;
           position: relative;
 
-          .solid{
-            width:1px;
+          .solid {
+            width: 1px;
             height: 100%;
-            background:#e0e0e0;
+            background: #e0e0e0;
             position: absolute;
-            left:50%;
-            top:10px;
+            left: 50%;
+            top: 10px;
             z-index: -1;
           }
 
-          .circle{
+          .circle {
             position: relative;
             width: 100%;
             height: 100px;
           }
 
-          
-          span{
-                color:#565656;
-                font-weight: 700;
-                position:absolute;
-                top:50px;  
-                left:50%;
-                transform: translate(-50%,-50%);
-            }
+          span {
+            color: #565656;
+            font-weight: 700;
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
         }
         .r-image {
           width: 200px;
@@ -205,12 +209,12 @@ onMounted(() => {
           margin: 0 0 100px 0;
         }
 
-        &:last-child{
-            .number{
-                .solid{
-                    display: none;
-                }
+        &:last-child {
+          .number {
+            .solid {
+              display: none;
             }
+          }
         }
       }
     }
@@ -299,100 +303,102 @@ onMounted(() => {
       }
     }
   }
-    /* 반응형 */
-    @include laptop {
-      width: 100%;
-      padding:0 30px;
-      gap:80px;
+  /* 반응형 */
+  @include laptop {
+    width: 100%;
+    padding: 0 30px;
+    gap: 80px;
 
-      .food-info{
-        width:40%;
-      }
+    .food-info {
+      width: 40%;
+    }
   }
 
   @include laptopToTablet {
-    gap:60px;
+    gap: 60px;
 
-    .food-info{
-        width:50%;
-      }
+    .food-info {
+      width: 50%;
+    }
   }
 
   @include tablet {
     flex-direction: column;
-    .food-info{
-      width:100%;
-      
-      .image{
-        max-height:450px;
-      }
-      }
+    .food-info {
+      width: 100%;
 
-      .food-recipe{
-        width:100%;
+      .image {
+        max-height: 450px;
       }
+    }
+
+    .food-recipe {
+      width: 100%;
+    }
   }
 
-  @include tabletToMobile{
-    .food-info{
-      .image{
-        max-height:350px;
+  @include tabletToMobile {
+    .food-info {
+      .image {
+        max-height: 350px;
       }
-      }
+    }
   }
 
   @include iphone {
-    padding:0;
+    padding: 0;
+    margin:0;
 
-    .food-info{
-      .image{
+    .food-info {
+      .image {
         border-radius: 0px;
       }
 
-      .title,.content,.nutrient,.ingredient-wrap{
-        padding:0 20px;
+      .title,
+      .content,
+      .nutrient,
+      .ingredient-wrap {
+        padding: 0 15px;
       }
 
-      .ingredient{
+      .ingredient {
         flex-direction: column;
-        gap:5px;
+        gap: 5px;
       }
-
-      }
-
-      .food-recipe{
-
-        .order{
-      display:block;
-      padding:0 20px;
-      font-weight: 600;
-      margin:0 0 20px 0;
     }
-        ul{
-          li{
-            flex-direction: column;
-            gap:0;
 
-            .number{
-              display: none;
+    .food-recipe {
+      .order {
+        display: block;
+        padding: 0 15px;
+        font-weight: 600;
+        margin: 0 0 20px 0;
+      }
+      ul {
+        li {
+          flex-direction: column;
+          gap: 0;
+
+          .number {
+            display: none;
+          }
+
+          .explain {
+            width: 100%;
+            padding: 0 15px;
+
+            .r-image {
+              width: 100%;
+              height: 200px;
             }
 
-            .explain{
-              width:100%;
-              padding:0 20px;
-
-              .r-image{
-                width: 100%;
-                height:200px;
-              }
-
-              .text{
-                margin:0 0 40px 0;
-              }
+            .text {
+              margin: 0 0 40px 0;
             }
           }
         }
       }
+    }
   }
 }
 </style>

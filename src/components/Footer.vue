@@ -60,6 +60,7 @@
         color: gray;
         font-weight: 600;
         opacity: 0.5;
+        text-transform: uppercase;
       }
       .logo {
         text-transform: uppercase;
@@ -89,6 +90,12 @@
       padding:0 15px;
       margin: 15px auto;
       grid-template-columns: 1fr;
+
+      .logo-wrap{
+        .logo{
+          font-size:11px;
+        }
+      }
     }
 
     .address{
