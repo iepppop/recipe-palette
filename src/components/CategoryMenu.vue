@@ -27,7 +27,6 @@
             <span> {{ cate.name === '국' ? '국&찌개' : `${cate.name}` }}</span>
             <span> {{ cate.gname }}</span>
           </div>
-          <div class="arrow"></div>
         </div>
       </button>
     </div>
@@ -99,30 +98,6 @@ const cateList = ref([
       transition: overflow 0.2s ease-in;
       box-shadow: 5px 5px 20px rgb(238, 238, 238, 0.2);
 
-      // &:first-child {
-      //   grid-area: a;
-      // }
-
-      // &:nth-child(2) {
-      //   grid-area: b;
-      // }
-
-      // &:nth-child(3) {
-      //   grid-area: c;
-      // }
-
-      // &:nth-child(4) {
-      //   grid-area: d;
-
-      //   .image {
-      //     bottom: -60px;
-      //   }
-      // }
-
-      // &:nth-child(5) {
-      //   grid-area: e;
-      // }
-
       &:hover {
         // overflow: visible;
         background: #e7f7e7;
@@ -174,6 +149,7 @@ const cateList = ref([
 
         span {
           font-weight: 700;
+          color:var(--black);
 
           &:last-child {
             text-transform: uppercase;
@@ -246,6 +222,9 @@ const cateList = ref([
     .category-wrap {
       padding:0 10px;
       gap:10px;
+      button{
+        height:200px;
+      }
     }
   }
 

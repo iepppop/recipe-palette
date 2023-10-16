@@ -86,7 +86,7 @@
 
   @include iphone {
     .footer-wrap {
-      padding:0 10px;
+      padding:0 15px;
       margin: 15px auto;
       grid-template-columns: 1fr;
     }
