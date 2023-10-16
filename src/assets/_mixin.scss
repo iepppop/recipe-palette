@@ -1,19 +1,67 @@
 @import "./_variables";
 
 @mixin mobile {
-    @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet - 1px}) {
-      @content;
-    }
+  @media (max-width: #{$breakpoint-iphone - 1px}) {
+    @content;
   }
+}
+
+@mixin iphone {
+  @media (max-width: #{$breakpoint-tabletToMobile - 1px}) {
+    @content;
+  }
+}
+
+@mixin tabletToMobile {
+  @media (max-width: #{$breakpoint-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$breakpoint-laptopToTablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin laptopToTablet {
+  @media(max-width: #{$breakpoint-laptop - 1px}) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: #{$breakpoint-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-desktop}) {
+    @content;
+  }
+}
+
+// @mixin mobile {
+//   @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-mobile-iphone - 1px}) {
+//     @content;
+//   }
+// }
+
+// @mixin iphone {
+//     @media (min-width: #{$breakpoint-mobile-iphone}) and (max-width: #{$breakpoint-tablet - 1px}) {
+//       @content;
+//     }
+//   }
   
-  @mixin tablet {
-    @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
-      @content;
-    }
-  }
+//   @mixin tablet {
+//     @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+//       @content;
+//     }
+//   }
   
-  @mixin desktop {
-    @media (min-width: #{$breakpoint-desktop}) {
-      @content;
-    }
-  }
+//   @mixin desktop {
+//     @media (min-width: #{$breakpoint-desktop}) {
+//       @content;
+//     }
+//   }

@@ -108,6 +108,7 @@ onMounted(() => {
 <style lang="scss">
 @import '@/assets/_mixin.scss'; /*변수파일 import*/
 .main-banner {
+  width:max-content;
   margin: 0 auto;
   padding: 100px 0 0 0;
   display: flex;
@@ -119,6 +120,8 @@ onMounted(() => {
     padding: 0 10px 0 0;
     height: 300px;
     overflow: hidden;
+    width: 90%;
+    margin: 20px 0 140px 0;
   }
 
   .sub-content {
@@ -132,6 +135,7 @@ onMounted(() => {
 
     p {
       font-weight: 500;
+      font-size: 14px;
     }
   }
 
@@ -141,6 +145,7 @@ onMounted(() => {
     box-shadow: 3px 3px 60px rgba(83, 83, 83, 0.1);
     border-radius: 15px;
     overflow: hidden;
+    width: 500px;
 
     button {
       width: 60px;
@@ -169,6 +174,7 @@ onMounted(() => {
     display: flex;
     width: 100%;
     justify-content: center;
+    font-size: 4rem;
 
     span {
       font-weight: 900;
@@ -178,6 +184,7 @@ onMounted(() => {
   h1 {
     font-weight: 400;
     display: flex;
+    font-size: clamp(1rem, 10vw, 3.5rem);
 
     .recipe-text {
       display: flex;
@@ -199,111 +206,272 @@ onMounted(() => {
 }
 
 /* 반응형 */
-@include mobile {
-  h1 {
-    font-size: 2.5em;
-  }
+@include laptop {
+  .main-banner{
+    width:100%;
 
-  .number {
-    font-size: 3rem;
-  }
-
-  .search-bar {
-    width: 70%;
-  }
-
-  .plate {
-    width: 80%;
-    margin: 20px 0 0 0;
-  }
-
-  .sub-content {
-    font-size: 12px;
-  }
-
-  .recipe-text {
-    .recipe-ele {
-      span {
-        top: -13px;
-        width: 3px;
-        height: 3px;
-      }
+    .plate{
+      width:80%;
     }
   }
 }
 
-@include tablet {
-  .main-banner {
-    width: 100%;
-    padding: 100px 30px 0 30px;
-
-    .plate {
-      width: 75%;
-      margin: 20px 0 120px 0;
+@include laptopToTablet {
+  .main-banner{
+    h1{
+      font-size:48px;
     }
 
-    h1 {
-      font-size: 3em;
+    .number{
+      font-size:55px;
     }
-
-    .number {
-      font-size: 3.5rem;
-    }
-
-    .search-bar {
-      width: 500px;
-    }
-
-    .sub-content {
-      font-size: 14px;
-    }
-
-    .recipe-text {
-      .recipe-ele {
-        span {
-          top: -18px;
-          width: 5px;
-          height: 5px;
-        }
-      }
-    }
-  }
+}
 }
 
-@include desktop {
-  .main-banner {
-    width: max-content;
-
-    .plate {
-      width: 90%;
-      margin: 20px 0 140px 0;
+@include tabletToMobile{
+  .main-banner{
+    h1{
+      font-size:38px;
     }
 
-    h1 {
-      font-size: clamp(1rem, 10vw, 3.5rem);
+    .number{
+      font-size:45px;
     }
 
-    .number {
-      font-size: 4rem;
+    .search-bar{
+      width:80%;
+    }
+}
+}
+
+@include iphone{
+  .main-banner{
+    h1{
+      font-size:34px;
     }
 
-    .search-bar {
-      width: 500px;
+    .number{
+      font-size:40px;
     }
 
-    .sub-content {
-      font-size: 14px;
-    }
-
-    .recipe-text {
-      .recipe-ele {
-        span {
-          top: -18px;
-          width: 6px;
-          height: 6px;
-        }
+    .search-bar{
+      input{
+        padding:0 20px;
+      &::placeholder {
+        font-size:12px;
       }
     }
-  }
+    }
 }
+}
+
+@include mobile{
+  .main-banner{
+    h1{
+      font-size:30px;
+    }
+
+    .number{
+      font-size:35px;
+    }
+
+    .search-bar{
+      border-radius: 10px;
+      margin:20px 0 0 0;
+
+      input{
+        padding:0 20px;
+        height:45px;
+        
+      &::placeholder {
+        font-size:11px;
+      }
+    }
+    }
+}
+}
+// @include laptop {
+// 	.main-banner {
+//     width: 100%;
+
+//     h1 {
+      
+//     }
+
+//     .number {
+   
+//     }
+
+//     .search-bar {
+  
+//     }
+
+//     .sub-content {
+//       font-size: 14px;
+//     }
+
+//     .recipe-text {
+//       .recipe-ele {
+//         span {
+//           top: -18px;
+//           width: 6px;
+//           height: 6px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @include laptop {
+//   .main-banner {
+//     width: 100%;
+
+//     .plate {
+//       width: 90%;
+//       margin: 20px 0 140px 0;
+//     }
+
+//     h1 {
+//       font-size: clamp(1rem, 10vw, 3.5rem);
+//     }
+
+//     .number {
+//       font-size: 4rem;
+//     }
+
+//     .search-bar {
+//       width: 500px;
+//     }
+
+//     .sub-content {
+//       font-size: 14px;
+//     }
+
+//     .recipe-text {
+//       .recipe-ele {
+//         span {
+//           top: -18px;
+//           width: 6px;
+//           height: 6px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @include iphone {
+//   .main-banner {
+//     .number{
+//       font-size: 2.5rem;
+//     }
+//   }
+// }
+
+// @include mobile {
+//   h1 {
+//     font-size: 2.5em;
+//   }
+
+//   .number {
+//     font-size: 3rem;
+//   }
+
+//   .search-bar {
+//     width: 70%;
+//   }
+
+//   .plate {
+//     width: 80%;
+//     margin: 20px 0 0 0;
+//   }
+
+//   .sub-content {
+//     font-size: 12px;
+//   }
+
+//   .recipe-text {
+//     .recipe-ele {
+//       span {
+//         top: -13px;
+//         width: 3px;
+//         height: 3px;
+//       }
+//     }
+//   }
+// }
+
+// @include tablet {
+//   .main-banner {
+//     width: 100%;
+//     padding: 100px 30px 0 30px;
+
+//     .plate {
+//       width: 75%;
+//       margin: 20px 0 120px 0;
+//     }
+
+//     h1 {
+//       font-size: 3em;
+//     }
+
+//     .number {
+//       font-size: 3.5rem;
+//     }
+
+//     .search-bar {
+//       width: 500px;
+//     }
+
+//     .sub-content {
+//       font-size: 14px;
+//     }
+
+//     .recipe-text {
+//       .recipe-ele {
+//         span {
+//           top: -18px;
+//           width: 5px;
+//           height: 5px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @include desktop {
+//   .main-banner {
+//     width: max-content;
+
+//     .plate {
+//       width: 90%;
+//       margin: 20px 0 140px 0;
+//     }
+
+//     h1 {
+//       font-size: clamp(1rem, 10vw, 3.5rem);
+//     }
+
+//     .number {
+//       font-size: 4rem;
+//     }
+
+//     .search-bar {
+//       width: 500px;
+//     }
+
+//     .sub-content {
+//       font-size: 14px;
+//     }
+
+//     .recipe-text {
+//       .recipe-ele {
+//         span {
+//           top: -18px;
+//           width: 6px;
+//           height: 6px;
+//         }
+//       }
+//     }
+//   }
+// }
 </style>
