@@ -210,9 +210,6 @@ const cateList = ref([
   @include tabletToMobile {
     .category-wrap {
       grid-template-columns: repeat(2, 1fr);
-      button{
-        height:200px;
-      }
     }
   }
 
@@ -224,6 +221,7 @@ const cateList = ref([
       gap:10px;
       button{
         height:200px;
+        padding:35px;
       }
     }
   }

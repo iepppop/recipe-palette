@@ -343,16 +343,25 @@ const movePage = (data) => {
         ul{
             grid-template-columns: repeat(1, 1fr);
             gap:0;
+
             li{
                 border:none;
                 border-top:1px solid #eee;
                 border-radius: 0;
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                height: 180px;
 
                 &:last-child{
                     border-bottom:1px solid #eee;
                 }
                 .image{
-                    height:280px;
+                    height:100%;
+                    border-right:1px solid #eee;
+
+                    img{
+                      height: 100%;
+                    }
                 }
             }
         }
