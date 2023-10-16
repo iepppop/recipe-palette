@@ -196,6 +196,7 @@ const movePage = (data) => {
         overflow: hidden;
         cursor: pointer;
         transition: 0.3s ease-in-out;
+        background:#fff;
 
         &:hover {
           box-shadow: 5px 5px 20px #eee;
@@ -338,9 +339,18 @@ const movePage = (data) => {
 
   @include iphone {
     .content {
+        padding:0px;
         ul{
             grid-template-columns: repeat(1, 1fr);
+            gap:0;
             li{
+                border:none;
+                border-top:1px solid #eee;
+                border-radius: 0;
+
+                &:last-child{
+                    border-bottom:1px solid #eee;
+                }
                 .image{
                     height:280px;
                 }

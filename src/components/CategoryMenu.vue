@@ -14,8 +14,8 @@
             ? 'dessert'
             : cate.name === '밥'
             ? 'rice'
-            : cate.name === '일품' 
-            ? 'best' 
+            : cate.name === '일품'
+            ? 'best'
             : ''
         ]"
       >
@@ -23,13 +23,11 @@
           <img :src="cate.imgUrl" :alt="cate.name" />
         </div>
         <div class="cate-name">
-         <div class="name">
+          <div class="name">
             <span> {{ cate.name === '국' ? '국&찌개' : `${cate.name}` }}</span>
-          <span> {{ cate.gname }}</span>
-         </div>
-         <div class="arrow">
-            
-         </div>
+            <span> {{ cate.gname }}</span>
+          </div>
+          <div class="arrow"></div>
         </div>
       </button>
     </div>
@@ -52,10 +50,12 @@ const cateList = ref([
   { name: '국', imgUrl: gook, gname: 'soup' },
   { name: '반찬', imgUrl: banchan, gname: 'side dish' },
   { name: '후식', imgUrl: dessert, gname: 'dessert' },
-  { name: '일품', imgUrl: best, gname: 'best' },
+  { name: '일품', imgUrl: best, gname: 'best' }
 ])
 </script>
 <style lang="scss">
+@import '@/assets/_mixin.scss';
+
 .category-menu {
   width: 1400px;
   margin: 150px auto 50px auto;
@@ -82,10 +82,7 @@ const cateList = ref([
   .category-wrap {
     width: 100%;
     display: grid;
-    grid-template-areas:
-        'a a b b c c'
-        'd d e e f f';
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 
     button {
@@ -102,29 +99,29 @@ const cateList = ref([
       transition: overflow 0.2s ease-in;
       box-shadow: 5px 5px 20px rgb(238, 238, 238, 0.2);
 
-      &:first-child{
-            grid-area: a;
-      }
+      // &:first-child {
+      //   grid-area: a;
+      // }
 
-      &:nth-child(2){
-            grid-area: b;
-      }
+      // &:nth-child(2) {
+      //   grid-area: b;
+      // }
 
-      &:nth-child(3){
-            grid-area: c;
-      }
+      // &:nth-child(3) {
+      //   grid-area: c;
+      // }
 
-      &:nth-child(4){
-            grid-area: d;
+      // &:nth-child(4) {
+      //   grid-area: d;
 
-            .image{
-                bottom:-60px;
-            }
-      }
+      //   .image {
+      //     bottom: -60px;
+      //   }
+      // }
 
-      &:nth-child(5){
-            grid-area: e;
-      }
+      // &:nth-child(5) {
+      //   grid-area: e;
+      // }
 
       &:hover {
         // overflow: visible;
@@ -134,23 +131,23 @@ const cateList = ref([
         &.soup {
           background: #fef0db;
 
-          .image{
-                bottom:-20px;
-            }
+          .image {
+            bottom: -20px;
+          }
         }
 
         &.dessert {
           background: #ffe6fa;
 
-          .image{
-                bottom:-20px;
-            }
+          .image {
+            bottom: -20px;
+          }
         }
 
         &.rice {
           background: #eeeeee;
         }
-        
+
         &.best {
           background: #ffeaea;
         }
@@ -171,8 +168,8 @@ const cateList = ref([
         align-items: center;
         gap: 2px;
 
-        .arrow{
-            color:#b0b0b0;
+        .arrow {
+          color: #b0b0b0;
         }
 
         span {
@@ -181,7 +178,7 @@ const cateList = ref([
           &:last-child {
             text-transform: uppercase;
             font-size: 13px;
-            color:#b0b0b0;
+            color: #b0b0b0;
           }
         }
       }
@@ -206,6 +203,55 @@ const cateList = ref([
     }
     100% {
       transform: rotate(0deg);
+    }
+  }
+
+  /* 반응형 */
+  @include laptop {
+    width: 100%;
+
+    .category-wrap {
+      padding:0 30px;
+    }
+  }
+
+  @include laptopToTablet {
+    h1 {
+      font-size: 25px;
+    }
+    .sub-ex {
+      font-size: 14px;
+      margin: 7px 0 50px 0;
+    }
+
+    .category-wrap {
+      button{
+        height:230px;
+      }
+    }
+  }
+
+  @include tabletToMobile {
+    .category-wrap {
+      grid-template-columns: repeat(2, 1fr);
+      button{
+        height:200px;
+      }
+    }
+  }
+
+  @include iphone {
+    margin:80px 0 0 0;
+
+    .category-wrap {
+      padding:0 10px;
+      gap:10px;
+    }
+  }
+
+  @include mobile {
+    .category-wrap {
+      grid-template-columns: repeat(1, 1fr);
     }
   }
 }

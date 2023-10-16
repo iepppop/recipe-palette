@@ -79,7 +79,7 @@
 
         span {
           &:first-child {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
           }
 
@@ -97,15 +97,22 @@
   }
 
   @include iphone {
+    padding: 0 0px;
+    margin-top:-20px;
+
     .sub-banner {
-        height: 100px;
+        height: 80px;
+        padding: 0 0px;
+        margin:0;
+        border-radius: 0;
+        
       .content {
-        margin: 0 40px;
+        margin: 0 20px;
         gap:3px;
 
         span {
           &:last-child {
-            font-size: 18px;
+            font-size: 13px;
           }
         }
       }

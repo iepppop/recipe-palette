@@ -16,6 +16,8 @@
   </div>
 </template>
 <style lang="scss">
+@import '@/assets/_mixin.scss';
+
 .footer {
   width: 100%; 
   border-top:1px solid #f8f8f8;
@@ -72,6 +74,26 @@
         }
       }
     }
+  }
+
+   /* 반응형 */
+   @include laptop {
+    .footer-wrap {
+      width:100%;
+      padding:0 30px;
+    }
+  }
+
+  @include iphone {
+    .footer-wrap {
+      padding:0 10px;
+      margin: 15px auto;
+      grid-template-columns: 1fr;
+    }
+
+    .address{
+        display: none;
+      }
   }
 }
 </style>
