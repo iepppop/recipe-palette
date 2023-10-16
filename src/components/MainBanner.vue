@@ -106,9 +106,10 @@ onMounted(() => {
 })
 </script>
 <style lang="scss">
-@import '@/assets/_mixin.scss'; /*변수파일 import*/
+@import '@/assets/_mixin.scss';
+
 .main-banner {
-  width:max-content;
+  width: max-content;
   margin: 0 auto;
   padding: 100px 0 0 0;
   display: flex;
@@ -207,87 +208,111 @@ onMounted(() => {
 
 /* 반응형 */
 @include laptop {
-  .main-banner{
-    width:100%;
+  .main-banner {
+    width: 100%;
 
-    .plate{
-      width:80%;
+    .plate {
+      width: 80%;
     }
   }
 }
 
 @include laptopToTablet {
-  .main-banner{
-    h1{
-      font-size:48px;
+  .main-banner {
+    h1 {
+      font-size: 48px;
     }
 
-    .number{
-      font-size:55px;
-    }
-}
-}
-
-@include tabletToMobile{
-  .main-banner{
-    h1{
-      font-size:38px;
+    .number {
+      font-size: 55px;
     }
 
-    .number{
-      font-size:45px;
+    .plate{
+      margin:0 0 50px 0;
     }
-
-    .search-bar{
-      width:80%;
-    }
-}
+  }
 }
 
-@include iphone{
-  .main-banner{
-    h1{
-      font-size:34px;
+@include tabletToMobile {
+  .main-banner {
+    h1 {
+      font-size: 38px;
     }
 
-    .number{
-      font-size:40px;
+    .number {
+      font-size: 45px;
     }
 
-    .search-bar{
-      input{
-        padding:0 20px;
-      &::placeholder {
-        font-size:12px;
+    .search-bar {
+      width: 80%;
+    }
+
+    .plate{
+      height: 250px;
+      margin:0 0 0px 0;
+    }
+  }
+}
+
+@include iphone {
+  .main-banner {
+    h1 {
+      font-size: 34px;
+    }
+
+    .number {
+      font-size: 40px;
+    }
+
+    .sub-content {
+      gap: 3px;
+      p {
+        font-size: 12px;
       }
     }
+
+    .search-bar {
+      input {
+        padding: 0 20px;
+        &::placeholder {
+          font-size: 12px;
+        }
+      }
     }
+
+    .plate{
+      height: 200px;
+    }
+  }
 }
-}
 
-@include mobile{
-  .main-banner{
-    h1{
-      font-size:30px;
+@include mobile {
+  .main-banner {
+    h1 {
+      font-size: 30px;
     }
 
-    .number{
-      font-size:35px;
+    .number {
+      font-size: 35px;
     }
 
-    .search-bar{
+    .search-bar {
       border-radius: 10px;
-      margin:20px 0 0 0;
+      margin: 20px 0 0 0;
 
-      input{
-        padding:0 20px;
-        height:45px;
-        
-      &::placeholder {
-        font-size:11px;
+      input {
+        padding: 0 20px;
+        height: 45px;
+
+        &::placeholder {
+          font-size: 11px;
+        }
       }
     }
+
+    .plate{
+      height: 150px;
     }
-}
+  }
 }
 </style>

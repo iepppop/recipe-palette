@@ -41,6 +41,8 @@ onMounted(()=>{
 </script>
 
 <style lang="scss">
+@import '@/assets/_mixin.scss';
+
 .recent-posts{
     width:100%;
 
@@ -122,4 +124,52 @@ onMounted(()=>{
         }
     }
 }
+
+/* 반응형 */
+@include laptop {
+  .recent-posts {
+    .title{
+        width:100%;
+        padding:0 30px;
+        
+        .all-view{
+            right:30px;
+        }
+    }
+  }
+}
+
+@include laptopToTablet {
+    .recent-posts {
+    .title{
+        h1{
+            font-size:25px;
+        }
+
+        p{
+            font-size:14px;
+            margin:7px 0 50px 0;
+        }
+        
+        .all-view{
+            display: none;
+        }
+    }
+  }
+}
+
+@include iphone {
+    .recent-posts {
+    .title{
+        h1{
+            font-size:20px;
+        }
+
+        p{
+            font-size:12px;
+        }
+    }
+  }
+}
+
 </style>
