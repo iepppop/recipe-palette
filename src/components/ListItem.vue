@@ -393,12 +393,38 @@ const movePage = (data) => {
     }
   }
 
+  
   @include mobile {
     .content {
       ul {
         li {
+          grid-template-columns: 1.1fr 1.5fr;
+          height:165px;
+
+          .explain{
+            .sub{
+              font-size:11px;
+
+              span{
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                word-break: break-all;
+                margin:0 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 357px) {
+	    .content {
+      ul {
+        li {
           grid-template-columns: 1fr 1.5fr;
-          height:140px;
+          height:135px;
 
           .explain{
             .sub{
@@ -408,6 +434,6 @@ const movePage = (data) => {
         }
       }
     }
-  }
+}
 }
 </style>
