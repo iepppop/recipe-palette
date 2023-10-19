@@ -3,6 +3,7 @@
     class="header-wrap"
     :style="[route.path === '/' ? { background: '#f8f8f8' } : { background: 'transparent' }]"
   >
+  <div class="header-bg" v-show="isOpen" @click="isOpen = false"></div>
     <div
       class="header"
       :style="[route.path === '/' ? { background: '#f8f8f8' } : { background: 'transparent' }]"
@@ -12,7 +13,7 @@
         recipe palette
       </div>
       <div class="menu">
-        <div class="icon" :class="isOpen ? 'isOpen' : ''" @click="isOpen = !isOpen">
+        <div class="icon" :class="isOpen ? 'isOpen' : ''" @click="  toggleMenu()">
           <span></span><span></span><span></span>
         </div>
         <div class="menu-wrap" :class="isOpen ? 'isOpen' : ''">
@@ -92,8 +93,22 @@ const route = useRoute()
 const searchTxt = ref('')
 
 watch(route, () => {
-  isOpen.value = false
+  isOpen.value = false;
+  if (isOpen.value) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = 'auto'
+  }
 })
+
+const toggleMenu = () => {
+  isOpen.value = !(isOpen.value)
+  if (isOpen.value) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = 'auto'
+  }
+}
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';
@@ -101,6 +116,10 @@ watch(route, () => {
 .header-wrap {
   width: 100%;
   background: #f8f8f8;
+  
+  .header-bg{
+    display: none;
+  }
 
   .header {
     width: 1400px;
@@ -128,7 +147,7 @@ watch(route, () => {
         overflow: hidden;
         transition: 0.1s ease-in-out;
         top: 10px;
-        padding:20px 0 0 0;
+        padding: 20px 0 0 0;
 
         &.isOpen {
           opacity: 1;
@@ -194,7 +213,7 @@ watch(route, () => {
         display: flex;
         align-items: center;
         cursor: pointer;
-        z-index:99;
+        z-index: 99;
 
         &.isOpen {
           span {
@@ -205,7 +224,7 @@ watch(route, () => {
             &:nth-child(2) {
               display: none;
             }
-            &:last-child{
+            &:last-child {
               top: 50%;
               transform: translate(0, -50%) rotate(-45deg);
             }
@@ -253,9 +272,55 @@ watch(route, () => {
 /* 반응형 */
 @include laptop {
   .header-wrap {
+    overflow: hidden;
+    .header-bg{
+      position: fixed;
+      left:0;
+      top:0;
+      width:100%;
+      height: 100vh;
+      background:rgba(0,0,0,0.5);
+      display: block;
+      z-index: 1;
+    }
+
     .header {
       width: 100%;
       padding: 0 30px;
+
+      .icon {
+        position: static;
+      }
+
+      .menu {
+        overflow: hidden;
+
+        .menu-wrap {
+          position: fixed;
+          height: 100vh;
+          border-radius: 0;
+          top: 0;
+          right:-80vw;
+          border-top: none;
+          transition: right 0.3s ease-in;
+          opacity: 0;
+
+          &.isOpen{
+            right:0;
+            opacity: 1;
+          }
+
+          .search-wrap{
+            border:0;
+            background:#f8f8f8;
+            border-radius: 30px;
+            width:85%;
+            margin:10px auto 0 auto;
+            height:45px;
+            padding:0 20px;
+          }
+        }
+      }
     }
   }
 }
