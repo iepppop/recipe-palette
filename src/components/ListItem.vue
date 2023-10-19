@@ -11,6 +11,13 @@
       </span>
       <span>총 {{ props?.totalCount }}개 </span>
     </div>
+    <div class="srh-view" v-show="$route.query.keyword && props.totalCount">
+      <span
+        >'{{ $route.query.category === '국' ? '국&찌개' : `${$route.query.keyword}` }}' 키워드
+        결과
+      </span>
+      <span>총 {{ props?.totalCount }}개 </span>
+    </div>
     <div class="content" v-if="!props.data">
       <NoDataMessage />
     </div>
@@ -73,6 +80,7 @@
 </template>
 <script setup>
 import NoDataMessage from '@/components/NoDataMessage.vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   data: Array,
@@ -81,14 +89,14 @@ const props = defineProps({
   totalCount: String
 })
 
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+
 const router = useRouter()
 
 const movePage = (data) => {
   window.sessionStorage.setItem('info', JSON.stringify(data))
   router.push(`/food/${data.RCP_SEQ}`)
 }
+
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';
