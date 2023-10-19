@@ -138,6 +138,28 @@ const getCategoryData = async(currentPage)=>{
   }
 }
 
+const getKeywordData = async(currentPage) =>{
+  try{
+    const total = parseInt(window.sessionStorage.getItem('total'))
+    if (currentPage <= total) {
+      isLoading.value = true
+    }
+
+    const perPage = 20
+    const start = (currentPage - 1) * perPage + 1
+    const end = currentPage * perPage
+
+    const response = await axios.get(`COOKRCP01/json/${start}/${end}/RCP_PARTS_DTLS=${route.query.keyword}`);
+    totalCount.value = response.data.COOKRCP01.total_count;
+    totalPage.value = Math.ceil(response.data.COOKRCP01.total_count / 20)
+    window.sessionStorage.setItem('total', totalPage.value)
+    recentList.value = response.data.COOKRCP01.row
+    isLoading.value = false
+  }catch(err){
+    console.log(err)
+  }
+}
+
 const prevPage = (page) => {
   currentPage.value = parseInt(page) - 1
   if(route.query.search){
@@ -145,6 +167,16 @@ const prevPage = (page) => {
     query: { search: route.query.search , page: currentPage.value}
   })
   getSearchData(currentPage.value)
+  }else if(route.query.category){
+    router.push({
+    query: { category: route.query.category , page: currentPage.value}
+  })
+  getCategoryData(currentPage.value)
+  }else if(route.query.keyword){
+    router.push({
+    query: { category: route.query.keyword , page: currentPage.value}
+  })
+  getKeywordData(currentPage.value)
   }else{
     router.push({
     query: { page: currentPage.value }
@@ -165,6 +197,11 @@ const nextPage = (page) => {
     query: { category: route.query.category , page: currentPage.value}
   })
   getCategoryData(currentPage.value)
+  }else if(route.query.keyword){
+    router.push({
+    query: { category: route.query.keyword , page: currentPage.value}
+  })
+  getKeywordData(currentPage.value)
   }else{
     router.push({
     query: { page: currentPage.value }
@@ -200,6 +237,11 @@ const changePage = (page) => {
     query: { category: route.query.category , page}
   })
   getCategoryData(currentPage.value)
+  }else if(route.query.keyword){
+    router.push({
+    query: { category: route.query.keyword , page}
+  })
+  getKeywordData(currentPage.value)
   }else{
     router.push({
     query: { page }
@@ -225,6 +267,10 @@ onMounted(() => {
     router.push({
       query: { category: route.query.category , page: 1 }
     })
+  }else if(route.query.keyword && !route.query.page){
+    router.push({
+      query: { category: route.query.keyword , page: 1 }
+    })
   }else if(!route.query.page){
     router.push({
       query: { page: 1 }
@@ -237,6 +283,22 @@ onMounted(() => {
     getSearchData(currentPage.value)
   }else if(route.query.category){
     getCategoryData(currentPage.value)
+  }
+  else if(route.query.keyword){
+    getKeywordData(currentPage.value)
+  }else{
+    getDataList(currentPage.value)
+  }
+})
+
+
+watch(route,(nv,ov)=>{
+  if(route.query.search){
+    getSearchData(currentPage.value)
+  }else if(route.query.category){
+    getCategoryData(currentPage.value)
+  }else if(route.query.keyword){
+    getKeywordData(currentPage.value)
   }else{
     getDataList(currentPage.value)
   }
