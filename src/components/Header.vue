@@ -1,41 +1,101 @@
 <template>
   <div
     class="header-wrap"
-    :style="[this.$route.path === '/' ? { background: '#f8f8f8' } : { background: 'transparent' }]"
+    :style="[route.path === '/' ? { background: '#f8f8f8' } : { background: 'transparent' }]"
   >
     <div
       class="header"
-      :style="[
-        this.$route.path === '/' ? { background: '#f8f8f8' } : { background: 'transparent' }
-      ]"
+      :style="[route.path === '/' ? { background: '#f8f8f8' } : { background: 'transparent' }]"
     >
-      <div class="logo" @click="this.$router.push('/')">
+      <div class="logo" @click="router.push('/')">
         <img src="/logo.png" />
         recipe palette
       </div>
       <div class="menu">
-        <div class="icon"><span></span><span></span><span></span></div>
-        <div class="menu-wrap">
-          <div class="category">
-          <span class="name">전체 카테고리</span>
-          <ul>
-            <li>밥</li><li>국&찌개</li><li>반찬</li><li>후식</li><li>일품</li>
-          </ul>
-          <span class="keyword">인기 재료 키워드</span>
-          <ul>
-            <li>순두부</li><li>고기</li><li>오징어</li><li>김밥</li><li>샐러드</li><li>딸기</li>
-          </ul>
-        <div class=""></div>  
+        <div class="icon" :class="isOpen ? 'isOpen' : ''" @click="isOpen = !isOpen">
+          <span></span><span></span><span></span>
         </div>
+        <div class="menu-wrap" :class="isOpen ? 'isOpen' : ''">
+          <div class="category">
+            <span class="name">전체 카테고리</span>
+            <ul>
+              <li
+                v-for="cate in categoryList"
+                :key="cate.name"
+                @click="router.push({ path: 'list', query: { category: cate.link, page: 1 } })"
+                :style="
+                  route.query.category === cate.link
+                    ? { color: 'var(--green)', border: '1px solid var(--green)' }
+                    : ''
+                "
+              >
+                {{ cate.name }}
+              </li>
+            </ul>
+            <span class="keyword">인기 재료 키워드</span>
+            <ul>
+              <li
+                v-for="keyword in keywordList"
+                :key="keyword"
+                @click="router.push({ path: 'list', query: { keyword: keyword, page: 1 } })"
+                :style="
+                  route.query.keyword === keyword
+                    ? { color: 'var(--green)', border: '1px solid var(--green)' }
+                    : ''
+                "
+              >
+                {{ keyword }}
+              </li>
+            </ul>
+          </div>
+          <div class="search-wrap">
+            <div class="icon">
+              <svg
+                width="18"
+                fill="var(--green)"
+                xmlns="http://www.w3.org/2000/svg"
+                class="ionicon"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  d="M456.69 421.39L362.6 327.3a173.81 173.81 0 0034.84-104.58C397.44 126.38 319.06 48 222.72 48S48 126.38 48 222.72s78.38 174.72 174.72 174.72A173.81 173.81 0 00327.3 362.6l94.09 94.09a25 25 0 0035.3-35.3zM97.92 222.72a124.8 124.8 0 11124.8 124.8 124.95 124.95 0 01-124.8-124.8z"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              placeholder="레시피 검색하기"
+              v-model="searchTxt"
+              @keyup.enter="router.push({ path: 'list', query: { search: searchTxt, page: 1 } })"
+            />
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+import { ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
+const isOpen = ref(false)
+const categoryList = ref([
+  { name: '밥', link: '밥' },
+  { name: '국&찌개', link: '국' },
+  { name: '반찬', link: '반찬' },
+  { name: '후식', link: '후식' },
+  { name: '일품', link: '일품' }
+])
+const keywordList = ref(['순두부', '고기', '오징어', '버섯', '샐러드', '딸기'])
+const router = useRouter()
+const route = useRoute()
+const searchTxt = ref('')
+
+watch(route, () => {
+  isOpen.value = false
+})
 </script>
-  <style lang="scss">
+<style lang="scss">
 @import '@/assets/_mixin.scss';
 
 .header-wrap {
@@ -52,75 +112,126 @@
     background-color: #f8f8f8;
     position: relative;
 
-    .menu{
-      width:20px;
-      height: 14px;
+    .menu {
+      width: 15px;
+      height: 12px;
 
-      .menu-wrap{
+      .menu-wrap {
         position: absolute;
-        width:300px;
-        background:#fff;
-        top:60px;
-        right:0;
+        width: 300px;
+        background: #fff;
+        opacity: 0;
+        right: -15px;
         z-index: 1;
         border-radius: 15px;
+        border: 1px solid #eee;
+        overflow: hidden;
+        transition: 0.1s ease-in-out;
+        top: 10px;
+        padding:20px 0 0 0;
 
-        .category{
-          padding:25px 25px ;
+        &.isOpen {
+          opacity: 1;
+        }
 
-          ul{
+        .category {
+          padding: 25px 25px;
+
+          ul {
             display: flex;
-            margin:20px 0 0 0;
-            gap:10px;
+            margin: 20px 0 0 0;
+            gap: 10px;
             flex-wrap: wrap;
 
-            li{
-              border:1px solid #eee;
+            li {
+              border: 1px solid #eee;
               border-radius: 20px;
-              padding:9px 18px;
+              padding: 9px 18px;
               font-size: 13px;
               font-weight: 500;
+              cursor: pointer;
+              transition: 0.3s ease-in-out;
+
+              &:hover {
+                border: 1px solid var(--green);
+                color: var(--green);
+              }
             }
           }
 
-          span{
+          span {
             font-weight: 600;
-            font-size:15px;
+            font-size: 15px;
           }
 
-          .keyword{
-            margin:35px 0 0 0;
+          .keyword {
+            margin: 35px 0 0 0;
+          }
+        }
+
+        .search-wrap {
+          width: 100%;
+          border-top: 1px solid #eee;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          padding: 0 30px;
+
+          .icon {
+            width: 30px;
+          }
+
+          input {
+            width: calc(100% - 30px);
           }
         }
       }
 
-      .icon{
-        width:100%;
+      .icon {
+        width: 100%;
         height: 100%;
         position: relative;
         display: flex;
         align-items: center;
         cursor: pointer;
+        z-index:99;
 
-       span{
-        position: absolute;
-        top:0;
-        left:0;
-        width:100%;
-        height: 2px;
-        border-radius: 15px;
-        overflow: hidden;
-        background:var(--black);
-
-        &:nth-child(2){
-          top:6px;
+        &.isOpen {
+          span {
+            &:first-child {
+              top: 50%;
+              transform: translate(0, -50%) rotate(45deg);
+            }
+            &:nth-child(2) {
+              display: none;
+            }
+            &:last-child{
+              top: 50%;
+              transform: translate(0, -50%) rotate(-45deg);
+            }
+          }
         }
 
-        &:nth-child(3){
-          bottom:0;
-          top:auto;
+        span {
+          transition: 0.3s ease-in-out;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          border-radius: 15px;
+          overflow: hidden;
+          background: var(--black);
+
+          &:nth-child(2) {
+            top: 5px;
+          }
+
+          &:nth-child(3) {
+            bottom: 0;
+            top: auto;
+          }
         }
-       }
       }
     }
 
@@ -141,32 +252,32 @@
 
 /* 반응형 */
 @include laptop {
-  .header-wrap{
-    .header{
-      width:100%;
-      padding:0 30px;
+  .header-wrap {
+    .header {
+      width: 100%;
+      padding: 0 30px;
     }
   }
 }
 
-@include tabletToMobile{
-  .header-wrap{
-    .header{
+@include tabletToMobile {
+  .header-wrap {
+    .header {
       .logo {
-      font-size: 14px;
+        font-size: 14px;
 
-      img {
-        width: 10px;
+        img {
+          width: 10px;
+        }
       }
     }
-    }
   }
 }
 
-@include tabletToMobile{
-  .header-wrap{
-    .header{
-      padding:0 15px;
+@include tabletToMobile {
+  .header-wrap {
+    .header {
+      padding: 0 15px;
       height: 50px;
     }
   }
