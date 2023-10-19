@@ -357,11 +357,15 @@ watch(route,(nv,ov)=>{
 
   @include iphone{
     .list-wrap{
-      margin: 0 auto 100px auto;
+      margin: 0 auto 10px auto;
       .list-item{
         .srh-view {
           margin:0 0 15px 0;
         }
+      }
+
+      .pagination {
+        margin:30px auto 50px auto;
       }
     }
   }

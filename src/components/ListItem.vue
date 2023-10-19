@@ -353,6 +353,7 @@ const movePage = (data) => {
   @include iphone {
     .content {
       padding: 0px;
+
       ul {
         grid-template-columns: repeat(1, 1fr);
         gap: 0;
@@ -390,7 +391,7 @@ const movePage = (data) => {
     }
 
     .srh-view{
-      padding:0 15px;
+      padding:15px 15px 0 15px;
       span {
         font-size: 15px;
       &:last-child {
