@@ -1,36 +1,14 @@
-# recipe-palette
+# 레시피팔레트
+![](https://velog.velcdn.com/images/iepppop/post/4fe11f01-dca2-450b-bd98-45b64e1b1762/image.gif)
 
-This template should help get you started developing with Vue 3 in Vite.
+### URL
+[recipe-palette.vercel.app/](https://recipe-palette.vercel.app/)
 
-## Recommended IDE Setup
+### Install
+    npm start
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Story
+vue.js로 직접 구상하여 만들었습니다
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
-"# recipe-palette" 
+### Skill
+`vue.js` `axios` `gsap` `scss`
