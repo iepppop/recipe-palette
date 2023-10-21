@@ -120,12 +120,6 @@ const getNewAray = () => {
   extractedArray.value = extractedArray.value.filter((item) => item.manual.trim() !== '')
 }
 
-const scrollAnimation = () => {
-  // var tl = new TimelineMax({repeat:-1});
-  // TweenMax.set ("#demo", {xPercent:-50, yPercent:-50});
-  // tl.from(".food-recipe", 10, {drawSVG:0, ease:Linear.easeNone})
-}
-
 onMounted(() => {
   data.value = JSON.parse(window.sessionStorage.getItem('info'))
   getNewAray()

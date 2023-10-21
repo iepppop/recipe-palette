@@ -261,7 +261,7 @@ const isPrevPageDisabled = computed(() => {
 onMounted(() => {
   if(route.query.search && !route.query.page){
     router.push({
-      query: { search: route.query.category , page: 1 }
+      query: { search: route.query.search , page: 1 }
     })
   }else if(route.query.category && !route.query.page){
     router.push({

@@ -94,7 +94,7 @@ const searchTxt = ref('')
 
 watch(route, () => {
   isOpen.value = false;
-  if (isOpen.value) {
+  if (isOpen.value && window.innerWidth <= 1400) {
     document.body.style.overflow = 'hidden'
   } else {
     document.body.style.overflow = 'auto'
@@ -103,7 +103,7 @@ watch(route, () => {
 
 const toggleMenu = () => {
   isOpen.value = !(isOpen.value)
-  if (isOpen.value) {
+  if (isOpen.value && window.innerWidth <= 1400) {
     document.body.style.overflow = 'hidden'
   } else {
     document.body.style.overflow = 'auto'
