@@ -24,9 +24,12 @@
       <ul v-if="!isLoading">
         <li v-for="(item, index) in props.data" :key="index" @click="movePage(item)">
           <div class="image">
-            <img :src="item.ATT_FILE_NO_MK" :alt="item.RCP_NM" />
+            <span><img :src="item.ATT_FILE_NO_MK" :alt="item.RCP_NM" /></span>
           </div>
           <div class="explain">
+            <div class="scrap">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#eee" viewBox="0 0 256 256"><path d="M184,34H72A14,14,0,0,0,58,48V224a6,6,0,0,0,9.18,5.09l60.81-38,60.83,38A6,6,0,0,0,198,224V48A14,14,0,0,0,184,34Zm2,179.17-54.83-34.26a6,6,0,0,0-6.36,0L70,213.17V48a2,2,0,0,1,2-2H184a2,2,0,0,1,2,2Z"></path></svg>
+            </div>
             <div class="text">
               <div
                 class="tag"
@@ -57,7 +60,7 @@
       </ul>
       <ul v-else class="skeleton">
         <li v-for="index in dataLength" :key="index">
-          <div class="image"></div>
+          <div class="image"><span></span></div>
           <div class="explain">
             <div class="text">
               <div class="tag"></div>
@@ -122,11 +125,19 @@ const movePage = (data) => {
     margin: 0 auto;
 
     .skeleton {
-      .image {
-        background-color: #f2f2f2;
+       .image {
+        span{
+        background: #f2f2f2;
+        display: block;
+        width:100%;
+        height: 100%;
+        }
       }
+      
 
       .explain {
+        position: relative;
+
         .tag {
           width: 50px;
           height: 12px;
@@ -213,6 +224,8 @@ const movePage = (data) => {
           display: flex;
           align-items: center;
           width: 100%;
+          position: relative;
+          z-index: 1;
 
           img {
             width: 100%;
@@ -222,6 +235,13 @@ const movePage = (data) => {
 
         .explain {
           width: 100%;
+          position: relative;
+
+          .scrap{
+          position: absolute;
+          right:13px;
+          top:-5px;
+        }
 
           .text {
             padding: 20px;
@@ -349,7 +369,15 @@ const movePage = (data) => {
   @include iphone {
     .content {
       padding: 0px;
-
+      
+    .skeleton {
+       .image {
+        span{
+        width:80%;
+        height: 80%;
+        }
+      }
+    }
       ul {
         grid-template-columns: repeat(1, 1fr);
         gap: 0;
@@ -380,13 +408,17 @@ const movePage = (data) => {
             width: 100%;
             align-items: center;
 
-            img {
+            span {
               margin: 0 auto;
               width: 80%;
               border-radius: 5px;
               height: 80% !important;
-              object-fit: cover;
               margin: 0 auto 5px auto;
+              overflow: hidden;
+
+              img{
+                object-fit: cover;
+              }
             }
           }
 
