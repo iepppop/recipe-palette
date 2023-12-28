@@ -33,6 +33,7 @@ onMounted(()=>{
 })
 </script>
 <style lang="scss">
+@import '@/assets/_mixin.scss';
 .contain {
   background-image:linear-gradient(to bottom, #f8f8f8, transparent);
   // background-image: url('@/assets/images/bg.png'), linear-gradient(to bottom, #f8f8f8, transparent);
@@ -64,5 +65,10 @@ onMounted(()=>{
     width:100%;
     top:0;
   }
+  
+@include iphone{
+  .mainbanner-wrap-left {height:50vh}
+  .mainbanner-wrap-right {height:50vh}
+}
 }
 </style>
