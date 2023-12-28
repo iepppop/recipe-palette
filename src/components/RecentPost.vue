@@ -56,6 +56,7 @@ onMounted(()=>{
         justify-content: center;
         padding:10px;
         display: none;
+        margin: 0 auto;
 
         button{
             border:1px solid #eee;
@@ -174,6 +175,13 @@ onMounted(()=>{
             right:30px;
         }
     }
+    ul{
+        li{
+            &:nth-child(n+9) {
+                display: none;
+            }
+        }
+    }
   }
 }
 
@@ -188,9 +196,13 @@ onMounted(()=>{
             font-size:14px;
             margin:7px 0 50px 0;
         }
-        
-        .all-view{
-            display: none;
+    }
+
+    ul{
+        li{
+            &:nth-child(n+7) {
+                display: none;
+            }
         }
     }
   }
@@ -198,6 +210,10 @@ onMounted(()=>{
 
 @include iphone {
     .recent-posts {
+    .all-view{
+            display: none;
+    }
+
     .all-view-mobile{
         display: block;
     }
