@@ -71,6 +71,7 @@ onMounted(()=>{
 
             span{
                 font-weight: 700;
+                transition: 0.4s ease-in-out;
             }
 
             svg{
@@ -80,7 +81,7 @@ onMounted(()=>{
 
         :hover{
             span{
-                opacity: 0.9;
+                opacity: 0.8;
             }
         }
     }
