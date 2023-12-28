@@ -302,11 +302,12 @@ const toggleMenu = () => {
           top: 0;
           right:-80vw;
           border-top: none;
-          transition: right 0.3s ease-in;
-          opacity: 1;
+          transition: 0.3s ease-in;
+          opacity: 0;
 
           &.isOpen{
             right:0;
+            opacity: 1;
           }
 
           .search-wrap{
