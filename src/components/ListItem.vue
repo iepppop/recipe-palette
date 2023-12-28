@@ -13,8 +13,7 @@
     </div>
     <div class="srh-view" v-show="$route.query.keyword && props.totalCount">
       <span
-        >'{{ $route.query.category === '국' ? '국&찌개' : `${$route.query.keyword}` }}' 키워드
-        결과
+        >'{{ $route.query.category === '국' ? '국&찌개' : `${$route.query.keyword}` }}' 키워드 결과
       </span>
       <span>총 {{ props?.totalCount }}개 </span>
     </div>
@@ -89,14 +88,12 @@ const props = defineProps({
   totalCount: String
 })
 
-
 const router = useRouter()
 
 const movePage = (data) => {
   window.sessionStorage.setItem('info', JSON.stringify(data))
   router.push(`/food/${data.RCP_SEQ}`)
 }
-
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';
@@ -327,9 +324,9 @@ const movePage = (data) => {
       }
     }
 
-    .srh-view{
-      width:100%;
-      padding:0 30px;
+    .srh-view {
+      width: 100%;
+      padding: 0 30px;
     }
   }
 
@@ -345,7 +342,6 @@ const movePage = (data) => {
     .content {
       ul {
         grid-template-columns: repeat(2, 1fr);
-        
       }
     }
   }
@@ -363,63 +359,86 @@ const movePage = (data) => {
           border-top: 1px solid #eee;
           border-radius: 0;
           display: grid;
-          grid-template-columns: 1fr 2fr;
-          height: 170px;
+          grid-template-columns: 1.4fr 2fr;
+          height:100%;
 
           &:last-child {
             border-bottom: 1px solid #eee;
           }
 
-          .explain{
-            .sub{
-              border:none;
-              padding:0 20px 0 20px;
-              font-size:12px;
+          .explain {
+            .sub {
+              border: none;
+              padding: 0 20px 0 20px;
+              font-size: 12px;
             }
           }
 
           .image {
-            height: 100%;
-            border-right: 1px solid #eee;
+            overflow: hidden;
+            display: flex;
+            width: 100%;
+            align-items: center;
 
             img {
-              height: 100%;
+              margin: 0 auto;
+              width: 80%;
+              border-radius: 5px;
+              height: 80% !important;
+              object-fit: cover;
+              margin: 0 auto 5px auto;
+            }
+          }
+
+          .explain {
+            padding:0 20px 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .text {
+              padding: 0;
+            }
+            .sub {
+              padding: 0;
+              margin:10px 0 0 0;
             }
           }
         }
       }
     }
 
-    .srh-view{
-      padding:15px 15px 0 15px;
+    .srh-view {
+      padding: 15px 15px 0 15px;
       span {
         font-size: 15px;
-      &:last-child {
-        margin: 0 0 0 20px;
-        font-size: 12px;
+        &:last-child {
+          margin: 0 0 0 20px;
+          font-size: 12px;
+        }
       }
-    }
     }
   }
 
-  
   @include mobile {
     .content {
       ul {
         li {
-          grid-template-columns: 1.1fr 1.5fr;
-          height:165px;
+          grid-template-columns: 1.2fr 1.5fr;
+          height: 165px;
+          .image{
+            height: 100%;
+          }
 
-          .explain{
-            .sub{
-              font-size:11px;
+          .explain {
+            .sub {
+              font-size: 11px;
 
-              span{
+              span {
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 word-break: break-all;
-                margin:0 5px;
+                margin: 0 5px;
               }
             }
           }
@@ -429,20 +448,20 @@ const movePage = (data) => {
   }
 
   @media screen and (max-width: 357px) {
-	    .content {
+    .content {
       ul {
         li {
           grid-template-columns: 1fr 1.5fr;
-          height:135px;
+          height: 135px;
 
-          .explain{
-            .sub{
+          .explain {
+            .sub {
               display: none;
             }
           }
         }
       }
     }
-}
+  }
 }
 </style>

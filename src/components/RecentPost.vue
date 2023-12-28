@@ -57,6 +57,7 @@ onMounted(()=>{
         padding:10px;
         display: none;
         margin: 0 auto;
+        border-top:1px solid #eee;
 
         button{
             border:1px solid #eee;

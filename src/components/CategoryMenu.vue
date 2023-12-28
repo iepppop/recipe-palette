@@ -270,6 +270,9 @@ const cateList = ref([
   @include mobile {
     .category-wrap {
       grid-template-columns: repeat(1, 1fr);
+      button:last-child {
+        grid-column: span 1;
+      }
     }
   }
 }
