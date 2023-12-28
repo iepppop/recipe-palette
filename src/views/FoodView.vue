@@ -123,7 +123,7 @@ const getNewAray = () => {
 onMounted(() => {
   data.value = JSON.parse(window.sessionStorage.getItem('info'))
   getNewAray()
-  scrollAnimation()
+  // scrollAnimation()
 })
 </script>
 <style lang="scss">
