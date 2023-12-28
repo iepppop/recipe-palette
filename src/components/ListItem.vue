@@ -391,7 +391,7 @@ const movePage = (data) => {
           }
 
           .explain {
-            padding:0 20px 0 10px;
+            padding:0 20px 0 0px;
             display: flex;
             flex-direction: column;
             justify-content: center;
