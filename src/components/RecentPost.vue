@@ -12,7 +12,7 @@
         <button @click="nextPage"></button>
     </div>
     <div class="all-view-mobile">
-        <button><span>전체보기 <svg width="13" fill="#737373" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg></span></button>
+        <button @click="router.push('/list?page=1')"><span>전체보기 <svg width="13" fill="#737373" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg></span></button>
     </div>
     </div>
 </template>
@@ -61,7 +61,7 @@ onMounted(()=>{
             border:1px solid #eee;
             width: 100%;
             height: 100%;
-            border-radius: 15px;
+            border-radius: 5px;
             font-size: 14px;
             cursor: pointer;
             display: flex;
