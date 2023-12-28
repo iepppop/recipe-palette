@@ -98,6 +98,10 @@ const cateList = ref([
       transition: overflow 0.2s ease-in;
       box-shadow: 5px 5px 20px rgb(238, 238, 238, 0.2);
 
+      :last-child {
+        width: 100%;
+      }
+
       &:hover {
         // overflow: visible;
         background: #e7f7e7;
@@ -149,7 +153,7 @@ const cateList = ref([
 
         span {
           font-weight: 700;
-          color:var(--black);
+          color: var(--black);
 
           &:last-child {
             text-transform: uppercase;
@@ -187,7 +191,7 @@ const cateList = ref([
     width: 100%;
 
     .category-wrap {
-      padding:0 30px;
+      padding: 0 30px;
     }
   }
 
@@ -201,32 +205,64 @@ const cateList = ref([
     }
 
     .category-wrap {
-      button{
-        height:230px;
+      button {
+        height: 230px;
       }
     }
   }
 
   @include tabletToMobile {
     .category-wrap {
-      grid-template-columns: repeat(2, 1fr);
+      padding: 0 10px;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+
+      button:last-child {
+        grid-column: span 2;
+      }
+      button {
+        height: 200px;
+        padding: 35px;
+
+        &.best {
+          .image {
+            bottom: -40px;
+            width:45%;
+          }
+        }
+
+        .image {
+          bottom: -20px;
+        }
+      }
     }
   }
 
   @include iphone {
-    margin:80px 0 0 0;
+    margin: 80px 0 0 0;
 
     .category-wrap {
-      padding:0 10px;
-      gap:10px;
+      padding: 0 10px;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
 
-      button{
-        height:200px;
-        padding:35px;
+      button:last-child {
+        grid-column: span 2;
+      }
+      button {
+        height: 200px;
+        padding: 35px;
+
+        &.best {
+          .image {
+            bottom: -20px;
+            width:45%;
+          }
+        }
 
         .image {
-        bottom: -20px;
-      }
+          bottom: -20px;
+        }
       }
     }
   }
