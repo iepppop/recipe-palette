@@ -129,7 +129,7 @@
 
   @include iphone {
     padding: 0 0px;
-    margin-top:-20px;
+    margin-top:0px;
 
     .sub-banner {
         height: 80px;

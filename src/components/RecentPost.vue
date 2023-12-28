@@ -11,6 +11,9 @@
     <div class="pagination">
         <button @click="nextPage"></button>
     </div>
+    <div class="all-view-mobile">
+        <button><span>전체보기 <svg width="13" fill="#737373" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg></span></button>
+    </div>
     </div>
 </template>
 
@@ -45,6 +48,41 @@ onMounted(()=>{
 
 .recent-posts{
     width:100%;
+
+    .all-view-mobile{
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding:10px;
+        display: none;
+
+        button{
+            border:1px solid #eee;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content:center;
+
+            span{
+                font-weight: 700;
+            }
+
+            svg{
+                margin:0 0 0 5px;
+            }
+        }
+
+        :hover{
+            span{
+                opacity: 0.9;
+            }
+        }
+    }
 
     .title{
         text-align: center;
@@ -160,6 +198,12 @@ onMounted(()=>{
 
 @include iphone {
     .recent-posts {
+    .all-view-mobile{
+        display: block;
+    }
+     .pagination{
+            display:none
+        }
     .title{
         h1{
             font-size:20px;
@@ -167,6 +211,14 @@ onMounted(()=>{
 
         p{
             font-size:12px;
+        }
+    }
+
+    ul{
+        li{
+            &:nth-child(n+4) {
+                display: none;
+            }
         }
     }
   }
