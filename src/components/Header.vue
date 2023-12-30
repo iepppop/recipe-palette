@@ -102,7 +102,7 @@ watch(route, () => {
 })
 
 const toggleMenu = () => {
-  isOpen.value = !(isOpen.value)
+  isOpen.value = !isOpen.value
   if (isOpen.value && window.innerWidth <= 1400) {
     document.body.style.overflow = 'hidden'
   } else {
