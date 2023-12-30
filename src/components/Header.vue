@@ -13,7 +13,11 @@
         recipe palette
       </div>
       <div class="menu">
-        <div class="icon" :class="isOpen ? 'isOpen' : ''" @click="  toggleMenu()">
+        <div class="scrap">
+          <div class="count" v-show="store.recipeArr.length > 0">{{  store.recipeArr.length }}</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="#000000" viewBox="0 0 256 256"><path d="M192,24H96A16,16,0,0,0,80,40V56H64A16,16,0,0,0,48,72V224a8,8,0,0,0,12.65,6.51L112,193.83l51.36,36.68A8,8,0,0,0,176,224V184.69l19.35,13.82A8,8,0,0,0,208,192V40A16,16,0,0,0,192,24ZM160,208.46l-43.36-31a8,8,0,0,0-9.3,0L64,208.45V72h96Zm32-32L176,165V72a16,16,0,0,0-16-16H96V40h96Z"></path></svg>
+        </div>
+        <div class="icon" :class="isOpen ? 'isOpen' : ''" @click="toggleMenu()">
           <span></span><span></span><span></span>
         </div>
         <div class="menu-wrap" :class="isOpen ? 'isOpen' : ''">
@@ -78,7 +82,9 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useCommonStore } from '../stores/common.js'
 
+const store = useCommonStore();
 const isOpen = ref(false)
 const categoryList = ref([
   { name: '밥', link: '밥' },
@@ -99,6 +105,7 @@ watch(route, () => {
   } else {
     document.body.style.overflow = 'auto'
   }
+  console.log(store.recipeArr)
 })
 
 const toggleMenu = () => {
@@ -132,9 +139,11 @@ const toggleMenu = () => {
     position: relative;
 
     .menu {
-      width: 15px;
-      height: 12px;
-
+       display: flex;
+       width: max-content;
+       display: flex;
+       align-items: center;
+      
       .menu-wrap {
         position: absolute;
         width: 300px;
@@ -206,14 +215,45 @@ const toggleMenu = () => {
         }
       }
 
+      .scrap{
+        height: 20px;
+        width: 22px;
+        position: relative;
+        margin:0 10px 0 0;
+
+        .count{
+          position: absolute;
+          top:-6px;
+          right:-4px;
+          font-size: 10px;
+          width:14px;
+          height:14px;
+          border-radius: 50%;
+          background: #f89606;
+          display: flex;
+          align-items: center;
+          color:#fff;
+          z-index: 9;
+          justify-content: center;
+          padding:0 1px 0 0;
+        }
+
+        svg{
+          position: absolute;
+          right:0;
+          top:0;
+        }
+      }
+      
+
       .icon {
-        width: 100%;
-        height: 100%;
         position: relative;
         display: flex;
         align-items: center;
         cursor: pointer;
         z-index: 99;
+        width: 15px;
+        height: 12px;
 
         &.isOpen {
           span {
@@ -293,7 +333,6 @@ const toggleMenu = () => {
       }
 
       .menu {
-        overflow: hidden;
 
         .menu-wrap {
           position: fixed;

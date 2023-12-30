@@ -63,5 +63,5 @@ export const useCommonStore = defineStore('common', () => {
   }
 
 
-  return { dataList, isLoading, currentPage, totalPage, totalCount, getDataList, saveRecipe, removeRecipe }
+  return { dataList, isLoading, currentPage, totalPage, totalCount,recipeArr, getDataList, saveRecipe, removeRecipe }
 })
