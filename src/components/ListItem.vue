@@ -54,7 +54,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
                 height="30"
-                fill="#eee"
+                fill="#f89606"
                 viewBox="0 0 256 256"
               >
                 <path
