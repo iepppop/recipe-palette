@@ -1,9 +1,9 @@
 <template>
   <div class="list-page">
     <div class="list-wrap">
-      <ListItem :isLoading="isLoading" :data="recentList" :dataLength="20" :totalCount="totalCount ? totalCount : ''"/>
-      <div class="pagination" v-show="recentList">
-        <button @click="prevPage(route.query.page)" :disabled="isPrevPageDisabled" class="prev">
+      <ListItem :dataLength="20"/>
+      <div class="pagination" v-show="store.dataList.length > 0">
+        <button @click="changePage(route.query.page,0)" :disabled="isPrevPageDisabled" class="prev">
           <svg
             width="13"
             fill="#737373"
@@ -26,9 +26,9 @@
           <li
             v-for="page in pageNumbers()"
             :key="page"
-            @click="changePage(page)"
+            @click="changePage(page,2)"
             :style="[
-              page === currentPage
+              page === store.currentPage
                 ? { fontWeight: 700, color: 'var(--black)' }
                 : { fontWeight: 400, color: '#787878' }
             ]"
@@ -36,7 +36,7 @@
             {{ page }}
           </li>
         </ul>
-        <button @click="nextPage(route.query.page)" :disabled="isNextPageDisabled">
+        <button @click="changePage(route.query.page,1)" :disabled="isNextPageDisabled">
           <svg
             width="13"
             fill="#737373"
@@ -62,161 +62,18 @@
 import ListItem from '@/components/ListItem.vue'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useCommonStore } from '../stores/common.js'
 
+const store = useCommonStore();
 const route = useRoute()
 const router = useRouter()
-const axios = inject('$axios')
-
-const recentList = ref([])
-const isLoading = ref(false)
-const totalPage = ref(1)
-const currentPage = ref(1)
-const totalCount = ref(0);
-
-const getDataList = async (currentPage) => {
-  try {
-    const total = parseInt(window.sessionStorage.getItem('total'))
-    if (currentPage <= total) {
-      isLoading.value = true
-    }
-
-    const perPage = 20
-    const start = (currentPage - 1) * perPage + 1
-    const end = currentPage * perPage
-    const response = await axios.get(`COOKRCP01/json/${start}/${end}`)
-    totalPage.value = Math.ceil(response.data.COOKRCP01.total_count / 20)
-    window.sessionStorage.setItem('total', totalPage.value)
-    recentList.value = response.data.COOKRCP01.row
-    isLoading.value = false
-  } catch (err) {
-    console.log(err)
-    isLoading.value = false
-  }
-}
-
-const getSearchData = async(currentPage) => {
-  try{
-    const total = parseInt(window.sessionStorage.getItem('total'))
-    if (currentPage <= total) {
-      isLoading.value = true
-    }
-
-    const perPage = 20
-    const start = (currentPage - 1) * perPage + 1
-    const end = currentPage * perPage
-
-    const response = await axios.get(`COOKRCP01/json/${start}/${end}/RCP_NM=${route.query.search}`);
-    totalCount.value = response.data.COOKRCP01.total_count;
-    totalPage.value = Math.ceil(response.data.COOKRCP01.total_count / 20)
-    window.sessionStorage.setItem('total', totalPage.value)
-    recentList.value = response.data.COOKRCP01.row
-    isLoading.value = false
-  }catch(err){
-    console.log(err)
-  }
-}
-
-const getCategoryData = async(currentPage)=>{
-  try{
-    const total = parseInt(window.sessionStorage.getItem('total'))
-    if (currentPage <= total) {
-      isLoading.value = true
-    }
-
-    const perPage = 20
-    const start = (currentPage - 1) * perPage + 1
-    const end = currentPage * perPage
-
-    const response = await axios.get(`COOKRCP01/json/${start}/${end}/RCP_PAT2=${route.query.category}`);
-    totalCount.value = response.data.COOKRCP01.total_count;
-    totalPage.value = Math.ceil(response.data.COOKRCP01.total_count / 20)
-    window.sessionStorage.setItem('total', totalPage.value)
-    recentList.value = response.data.COOKRCP01.row
-    isLoading.value = false
-  }catch(err){
-    console.log(err)
-  }
-}
-
-const getKeywordData = async(currentPage) =>{
-  try{
-    const total = parseInt(window.sessionStorage.getItem('total'))
-    if (currentPage <= total) {
-      isLoading.value = true
-    }
-
-    const perPage = 20
-    const start = (currentPage - 1) * perPage + 1
-    const end = currentPage * perPage
-
-    const response = await axios.get(`COOKRCP01/json/${start}/${end}/RCP_PARTS_DTLS=${route.query.keyword}`);
-    totalCount.value = response.data.COOKRCP01.total_count;
-    totalPage.value = Math.ceil(response.data.COOKRCP01.total_count / 20)
-    window.sessionStorage.setItem('total', totalPage.value)
-    recentList.value = response.data.COOKRCP01.row
-    isLoading.value = false
-  }catch(err){
-    console.log(err)
-  }
-}
-
-const prevPage = (page) => {
-  currentPage.value = parseInt(page) - 1
-  if(route.query.search){
-    router.push({
-    query: { search: route.query.search , page: currentPage.value}
-  })
-  getSearchData(currentPage.value)
-  }else if(route.query.category){
-    router.push({
-    query: { category: route.query.category , page: currentPage.value}
-  })
-  getCategoryData(currentPage.value)
-  }else if(route.query.keyword){
-    router.push({
-    query: { category: route.query.keyword , page: currentPage.value}
-  })
-  getKeywordData(currentPage.value)
-  }else{
-    router.push({
-    query: { page: currentPage.value }
-  })
-  getDataList(currentPage.value)
-  }
-}
-
-const nextPage = (page) => {
-  currentPage.value = parseInt(page) + 1
-  if(route.query.search){
-    router.push({
-    query: { search: route.query.search , page: currentPage.value}
-  })
-  getSearchData(currentPage.value)
-  }else if(route.query.category){
-    router.push({
-    query: { category: route.query.category , page: currentPage.value}
-  })
-  getCategoryData(currentPage.value)
-  }else if(route.query.keyword){
-    router.push({
-    query: { category: route.query.keyword , page: currentPage.value}
-  })
-  getKeywordData(currentPage.value)
-  }else{
-    router.push({
-    query: { page: currentPage.value }
-  })
-  getDataList(currentPage.value)
-  }
-}
 
 const currentPageStart = () => {
-  return Math.max(currentPage.value - 2, 1)
+  return Math.max(store.currentPage - 2, 1)
 }
 
 const currentPageEnd = () => {
-  const total = parseInt(window.sessionStorage.getItem('total'))
-  return Math.min(currentPageStart() + 4, total)
+  return Math.min(currentPageStart() + 4, store.totalPage)
 }
 
 const pageNumbers = () => {
@@ -225,84 +82,38 @@ const pageNumbers = () => {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i)
 }
 
-const changePage = (page) => {
-  currentPage.value = page
-  if(route.query.search){
+const changePage = (page,num) => {
+    const queryKey  = Object.keys(route.query)[0];
+    let pagenNm;
+    if(num === 2) pagenNm = page;
+    else pagenNm = num === 1 ? parseInt(page) + 1 : parseInt(page) - 1;
     router.push({
-    query: { search: route.query.search , page}
-  })
-  getSearchData(currentPage.value)
-  }else if(route.query.category){
-    router.push({
-    query: { category: route.query.category , page}
-  })
-  getCategoryData(currentPage.value)
-  }else if(route.query.keyword){
-    router.push({
-    query: { category: route.query.keyword , page}
-  })
-  getKeywordData(currentPage.value)
-  }else{
-    router.push({
-    query: { page }
-  })
-  getDataList(currentPage.value)
-  }
+     query: { [queryKey] : Object.values(route.query)[0] , page: pagenNm}
+    })
 }
 
 const isNextPageDisabled = computed(() => {
-  return currentPage.value >= totalPage.value
+  return store.currentPage >= store.totalPage
 })
 
 const isPrevPageDisabled = computed(() => {
-  return currentPage.value <= 1
+  return  store.currentPage  <= 1
 })
 
 onMounted(() => {
-  if(route.query.search && !route.query.page){
-    router.push({
-      query: { search: route.query.search , page: 1 }
-    })
-  }else if(route.query.category && !route.query.page){
-    router.push({
-      query: { category: route.query.category , page: 1 }
-    })
-  }else if(route.query.keyword && !route.query.page){
-    router.push({
-      query: { category: route.query.keyword , page: 1 }
-    })
-  }else if(!route.query.page){
+if(!route.query.page){
     router.push({
       query: { page: 1 }
    })
   }
-
-  currentPage.value = parseInt(route.query.page)
-
-  if(route.query.search){
-    getSearchData(currentPage.value)
-  }else if(route.query.category){
-    getCategoryData(currentPage.value)
-  }
-  else if(route.query.keyword){
-    getKeywordData(currentPage.value)
-  }else{
-    getDataList(currentPage.value)
-  }
+  store.totalCount = 0;
+  store.getDataList()
 })
-
 
 watch(route,(nv,ov)=>{
-  if(route.query.search){
-    getSearchData(currentPage.value)
-  }else if(route.query.category){
-    getCategoryData(currentPage.value)
-  }else if(route.query.keyword){
-    getKeywordData(currentPage.value)
-  }else{
-    getDataList(currentPage.value)
-  }
-})
+  store.totalCount = 0;
+  store.getDataList()
+},)
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';

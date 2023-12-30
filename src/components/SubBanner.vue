@@ -1,8 +1,8 @@
 <template>
   <div class="sub-banner-wrap">
     <div class="sub-banner">
-      <dlv class="minibgleft"></dlv>
-      <dlv class="minibgright"></dlv>
+      <div class="minibgleft"></div>
+      <div class="minibgright"></div>
       <div class="content">
         <span>건강한 식재료, 신선한 야채</span>
         <span>다양하게 보고 선택하세요.</span>

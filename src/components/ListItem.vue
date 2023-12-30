@@ -1,34 +1,66 @@
 <template>
   <div class="list-item">
-    <div class="srh-view" v-show="$route.query.search && props.totalCount">
-      <span>'{{ $route.query.search }}' 검색 결과 </span>
-      <span>총 {{ props?.totalCount }}개 </span>
+    <div class="srh-view" v-show="store.dataList && $route.path !== '/'">
+      <span v-if="$route.query.search">'{{ $route.query.search }}' 검색 결과 </span>
+      <span v-else-if="$route.query.keyword">'{{ $route.query.keyword }}' 키워드 결과 </span>
+      <span v-else-if="$route.query.category">'{{ $route.query.category === '국' ? '국&찌개' : `${$route.query.category}` }}' 카테고리 결과 </span>
+      <span v-else>전체 보기</span>
+      <span v-show="store.totalCount && store.totalCount !== 0">총 {{ store.totalCount }}개</span>
     </div>
-    <div class="srh-view" v-show="$route.query.category && props.totalCount">
-      <span
-        >'{{ $route.query.category === '국' ? '국&찌개' : `${$route.query.category}` }}' 카테고리
-        결과
-      </span>
-      <span>총 {{ props?.totalCount }}개 </span>
-    </div>
-    <div class="srh-view" v-show="$route.query.keyword && props.totalCount">
-      <span
-        >'{{ $route.query.category === '국' ? '국&찌개' : `${$route.query.keyword}` }}' 키워드 결과
-      </span>
-      <span>총 {{ props?.totalCount }}개 </span>
-    </div>
-    <div class="content" v-if="!props.data">
+    <div class="content" v-if="store.dataList.MSG === '해당하는 데이터가 없습니다.'">
       <NoDataMessage />
     </div>
     <div class="content" v-else>
-      <ul v-if="!isLoading">
-        <li v-for="(item, index) in props.data" :key="index" @click="movePage(item)">
+      <ul v-if="store.isLoading" class="skeleton" ref="skeleton">
+        <li v-for="index in 10" :key="index">
+          <div class="image"><span></span></div>
+          <div class="explain">
+            <div class="text">
+              <div class="tag"></div>
+              <h2></h2>
+              <p>
+                <span></span>
+                <span></span>
+              </p>
+            </div>
+            <div class="sub">
+              <span> </span>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul v-else>
+        <li v-for="(item, index) in store.dataList" :key="index" @click="movePage(item)">
           <div class="image">
             <span><img :src="item.ATT_FILE_NO_MK" :alt="item.RCP_NM" /></span>
           </div>
           <div class="explain">
-            <div class="scrap">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#eee" viewBox="0 0 256 256"><path d="M184,34H72A14,14,0,0,0,58,48V224a6,6,0,0,0,9.18,5.09l60.81-38,60.83,38A6,6,0,0,0,198,224V48A14,14,0,0,0,184,34Zm2,179.17-54.83-34.26a6,6,0,0,0-6.36,0L70,213.17V48a2,2,0,0,1,2-2H184a2,2,0,0,1,2,2Z"></path></svg>
+            <div class="scrap" @click.stop="store.saveRecipe(item)" v-if="!item.isDuplicate">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                fill="#eee"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  d="M184,34H72A14,14,0,0,0,58,48V224a6,6,0,0,0,9.18,5.09l60.81-38,60.83,38A6,6,0,0,0,198,224V48A14,14,0,0,0,184,34Zm2,179.17-54.83-34.26a6,6,0,0,0-6.36,0L70,213.17V48a2,2,0,0,1,2-2H184a2,2,0,0,1,2,2Z"
+                ></path>
+              </svg>
+            </div>
+            <div class="scrap" @click.stop="store.removeRecipe(item)" v-else>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                fill="#000000"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"
+                ></path>
+              </svg>
             </div>
             <div class="text">
               <div
@@ -58,45 +90,18 @@
           </div>
         </li>
       </ul>
-      <ul v-else class="skeleton">
-        <li v-for="index in dataLength" :key="index">
-          <div class="image"><span></span></div>
-          <div class="explain">
-            <div class="text">
-              <div class="tag"></div>
-              <h2></h2>
-              <p>
-                <span></span>
-                <span></span>
-              </p>
-            </div>
-            <div class="sub">
-              <span> </span>
-              <div class="dot"></div>
-            </div>
-          </div>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
 <script setup>
 import NoDataMessage from '@/components/NoDataMessage.vue'
-import { useRouter } from 'vue-router'
+import { useCommonStore } from '../stores/common.js'
 
+const store = useCommonStore();
 const props = defineProps({
-  data: Array,
-  isLoading: Boolean,
-  dataLength: Number,
-  totalCount: String
+  dataLength:Number
 })
 
-const router = useRouter()
-
-const movePage = (data) => {
-  window.sessionStorage.setItem('info', JSON.stringify(data))
-  router.push(`/food/${data.RCP_SEQ}`)
-}
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';
@@ -125,15 +130,14 @@ const movePage = (data) => {
     margin: 0 auto;
 
     .skeleton {
-       .image {
-        span{
-        background: #f2f2f2;
-        display: block;
-        width:100%;
-        height: 100%;
+      .image {
+        span {
+          background: #f2f2f2;
+          display: block;
+          width: 100%;
+          height: 100%;
         }
       }
-      
 
       .explain {
         position: relative;
@@ -237,11 +241,12 @@ const movePage = (data) => {
           width: 100%;
           position: relative;
 
-          .scrap{
-          position: absolute;
-          right:13px;
-          top:-5px;
-        }
+          .scrap {
+            position: absolute;
+            right: 13px;
+            top: -5px;
+            z-index: 99;
+          }
 
           .text {
             padding: 20px;
@@ -369,15 +374,15 @@ const movePage = (data) => {
   @include iphone {
     .content {
       padding: 0px;
-      
-    .skeleton {
-       .image {
-        span{
-        width:80%;
-        height: 80%;
+
+      .skeleton {
+        .image {
+          span {
+            width: 80%;
+            height: 80%;
+          }
         }
       }
-    }
       ul {
         grid-template-columns: repeat(1, 1fr);
         gap: 0;
@@ -388,7 +393,7 @@ const movePage = (data) => {
           border-radius: 0;
           display: grid;
           grid-template-columns: 1.4fr 2fr;
-          height:100%;
+          height: 100%;
 
           &:last-child {
             border-bottom: 1px solid #eee;
@@ -416,14 +421,14 @@ const movePage = (data) => {
               margin: 0 auto 5px auto;
               overflow: hidden;
 
-              img{
+              img {
                 object-fit: cover;
               }
             }
           }
 
           .explain {
-            padding:0 20px 0 0px;
+            padding: 0 20px 0 0px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -432,7 +437,7 @@ const movePage = (data) => {
             }
             .sub {
               padding: 0;
-              margin:10px 0 0 0;
+              margin: 10px 0 0 0;
             }
           }
         }
@@ -457,7 +462,7 @@ const movePage = (data) => {
         li {
           grid-template-columns: 1.2fr 1.5fr;
           height: 165px;
-          .image{
+          .image {
             height: 100%;
           }
 

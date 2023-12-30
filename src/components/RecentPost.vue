@@ -7,7 +7,7 @@
         <h1>최근 등록된 레시피</h1>
         <p>매일 업데이트 되는 다양한 레시피</p>
     </div>
-    <ListItem :isLoading="isLoading" :data="recentList" :dataLength="10"/>
+    <ListItem :dataLength="10"/>
     <div class="pagination">
         <button @click="nextPage"></button>
     </div>
@@ -19,27 +19,16 @@
 
 <script setup>
 import ListItem from "@/components/ListItem.vue";
-import { inject, onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useCommonStore } from '../stores/common.js'
 
-const axios = inject('$axios');
-const recentList = ref([]);
-const isLoading = ref(false);
+
 const router = useRouter();
-
-const getDataList = async () => {
-    try{
-    isLoading.value = true;
-      const response = await axios.get('COOKRCP01/json/1/10');
-      recentList.value = response.data.COOKRCP01.row;
-      isLoading.value = false;
-    } catch(err) {
-      console.log(err);
-    }
-}
+const store = useCommonStore();
 
 onMounted(()=>{
-    getDataList();
+    store.getDataList();
 })
 </script>
 
