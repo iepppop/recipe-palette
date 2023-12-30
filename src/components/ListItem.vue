@@ -54,7 +54,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
                 height="30"
-                fill="#000000"
+                fill="#eee"
                 viewBox="0 0 256 256"
               >
                 <path
@@ -244,7 +244,7 @@ const props = defineProps({
           .scrap {
             position: absolute;
             right: 13px;
-            top: -5px;
+            top: -6px;
             z-index: 99;
           }
 
