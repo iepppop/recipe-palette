@@ -150,7 +150,7 @@ const toggleMenu = () => {
         background: #fff;
         opacity: 0;
         right: -15px;
-        z-index: 1;
+        z-index: 3;
         border-radius: 15px;
         border: 1px solid #eee;
         overflow: hidden;
@@ -233,9 +233,8 @@ const toggleMenu = () => {
           display: flex;
           align-items: center;
           color:#fff;
-          z-index: 9;
+          z-index: 1;
           justify-content: center;
-          padding:0 1px 0 0;
         }
 
         svg{
