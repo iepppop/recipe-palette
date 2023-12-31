@@ -95,13 +95,6 @@
 </template>
 <script setup>
 import NoDataMessage from '@/components/NoDataMessage.vue'
-import { useCommonStore } from '../stores/common.js'
-
-const store = useCommonStore();
-const props = defineProps({
-  dataLength:Number
-})
-
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';
