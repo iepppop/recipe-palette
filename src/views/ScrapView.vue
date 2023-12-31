@@ -223,11 +223,11 @@ const store = useCommonStore()
   }
 }
 
-// @include iphone {
-//   .scrap-wrap {
-//     .scrap-title {
-
-//     }
-//   }
-// }
+@include iphone {
+  .scrap-wrap {
+    .scrap-title {
+        font-size: 15px;
+    }
+  }
+}
 </style>
