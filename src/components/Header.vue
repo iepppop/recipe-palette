@@ -13,7 +13,7 @@
         recipe palette
       </div>
       <div class="menu">
-        <div class="scrap">
+        <div class="scrap" @click="movePage()">
           <div class="count" v-show="store.recipeArr.length > 0">{{  store.recipeArr.length }}</div>
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="#000000" viewBox="0 0 256 256"><path d="M192,24H96A16,16,0,0,0,80,40V56H64A16,16,0,0,0,48,72V224a8,8,0,0,0,12.65,6.51L112,193.83l51.36,36.68A8,8,0,0,0,176,224V184.69l19.35,13.82A8,8,0,0,0,208,192V40A16,16,0,0,0,192,24ZM160,208.46l-43.36-31a8,8,0,0,0-9.3,0L64,208.45V72h96Zm32-32L176,165V72a16,16,0,0,0-16-16H96V40h96Z"></path></svg>
         </div>
@@ -107,16 +107,12 @@ const toggleMenu = () => {
   }
 }
 
+const movePage = () => {
+  router.push({ name: 'scrap'})
+}
 
 watch(route, () => {
   isOpen.value = false
-  // isOpen.value = !isOpen.value
-  // if (isOpen.value && window.innerWidth <= 1400) {
-  //   document.body.style.overflow = 'hidden'
-  // } else {
-  //   document.body.style.overflow = 'auto'
-  // }
-  // console.log(store.recipeArr)
 })
 
 </script>
@@ -223,6 +219,7 @@ watch(route, () => {
         width: 22px;
         position: relative;
         margin:0 10px 0 0;
+        cursor: pointer;
 
         .count{
           position: absolute;
