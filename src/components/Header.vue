@@ -149,7 +149,7 @@ watch(route, () => {
         background: #fff;
         opacity: 0;
         right: -15px;
-        z-index: 9999;
+        z-index: -1;
         border-radius: 15px;
         border: 1px solid #eee;
         overflow: hidden;
@@ -158,6 +158,7 @@ watch(route, () => {
         padding: 20px 0 0 0;
 
         &.isOpen {
+          z-index: 9999;
           opacity: 1;
         }
 
