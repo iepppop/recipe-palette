@@ -83,6 +83,10 @@ const pageNumbers = () => {
 }
 
 const changePage = (page,num) => {
+    // num = 0  이전 페이지
+    // num = 1  다음 페이지
+    // num = 2  누른 숫자 페이지 이동 
+    
     const queryKey  = Object.keys(route.query)[0];
     let pagenNm;
     if(num === 2) pagenNm = page;
