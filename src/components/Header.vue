@@ -98,16 +98,6 @@ const router = useRouter()
 const route = useRoute()
 const searchTxt = ref('')
 
-watch(route, () => {
-  isOpen.value = false;
-  if (isOpen.value && window.innerWidth <= 1400) {
-    document.body.style.overflow = 'hidden'
-  } else {
-    document.body.style.overflow = 'auto'
-  }
-  console.log(store.recipeArr)
-})
-
 const toggleMenu = () => {
   isOpen.value = !isOpen.value
   if (isOpen.value && window.innerWidth <= 1400) {
@@ -116,6 +106,19 @@ const toggleMenu = () => {
     document.body.style.overflow = 'auto'
   }
 }
+
+
+watch(route, () => {
+  isOpen.value = false
+  // isOpen.value = !isOpen.value
+  // if (isOpen.value && window.innerWidth <= 1400) {
+  //   document.body.style.overflow = 'hidden'
+  // } else {
+  //   document.body.style.overflow = 'auto'
+  // }
+  // console.log(store.recipeArr)
+})
+
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';
@@ -150,7 +153,7 @@ const toggleMenu = () => {
         background: #fff;
         opacity: 0;
         right: -15px;
-        z-index: 3;
+        z-index: 9999;
         border-radius: 15px;
         border: 1px solid #eee;
         overflow: hidden;
@@ -253,6 +256,7 @@ const toggleMenu = () => {
         z-index: 99;
         width: 15px;
         height: 12px;
+        z-index: 99999;
 
         &.isOpen {
           span {
