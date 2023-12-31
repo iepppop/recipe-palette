@@ -253,7 +253,6 @@ watch(route, () => {
         display: flex;
         align-items: center;
         cursor: pointer;
-        z-index: 99;
         width: 15px;
         height: 12px;
         z-index: 99999;
@@ -324,7 +323,7 @@ watch(route, () => {
       height: 100vh;
       background:rgba(0,0,0,0.5);
       display: block;
-      z-index: 1;
+      z-index: 5;
     }
 
     .header {

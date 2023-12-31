@@ -226,7 +226,7 @@ const store = useCommonStore();
           align-items: center;
           width: 100%;
           position: relative;
-          z-index: 1;
+          z-index: 2;
 
           img {
             width: 100%;
@@ -242,7 +242,7 @@ const store = useCommonStore();
             position: absolute;
             right: 13px;
             top: -6px;
-            z-index: 99;
+            z-index: 1;
           }
 
           .text {
