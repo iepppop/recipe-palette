@@ -96,8 +96,15 @@
 <script setup>
 import NoDataMessage from '@/components/NoDataMessage.vue'
 import { useCommonStore } from '../stores/common.js'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useCommonStore();
+
+const movePage = (item) => {
+    window.sessionStorage.setItem('info', JSON.stringify(item))
+    router.push({ name: 'food', params: { idx: item.RCP_SEQ } });
+}
 
 </script>
 <style lang="scss">
