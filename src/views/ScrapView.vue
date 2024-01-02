@@ -3,7 +3,20 @@
     <div class="nolist" v-show="store.recipeArr.length === 0">
       스크랩에 저장된 레시피가 없습니다.
     </div>
-    <div class="scrap-title">{{ store.recipeArr.length }}개의 스크랩</div>
+    <div class="scrap-search">
+      <input type="text" placeholder="보관함 내 검색" />
+    </div>
+    <div class="border" style="margin:25px 0 0 0"></div>
+    <div class="scrap-title">
+      <ul class="scrap-cate">
+        <li>전체</li>
+        <li v-for="item in categoryList" :key="item">
+          {{ item.name }}
+        </li>
+      </ul>
+    </div>
+    <div class="border" style="margin:0 0 25px 0"></div>
+    <!-- <div class="border" style="margin:0 0 25px 0"></div> -->
     <ul class="scrap-list">
       <li v-for="item in store.recipeArr" :key="item.RCP_NM">
         <div class="image">
@@ -67,26 +80,76 @@
   </div>
 </template>
 <script setup>
+import { ref } from 'vue'
 import { useCommonStore } from '../stores/common.js'
 
 const store = useCommonStore()
+
+const categoryList = ref([
+  { name: '밥', link: '밥' },
+  { name: '국&찌개', link: '국' },
+  { name: '반찬', link: '반찬' },
+  { name: '후식', link: '후식' },
+  { name: '일품', link: '일품' }
+])
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';
 
 .scrap-wrap {
-  width: 1400px;
   display: flex;
-  margin: 0 auto;
   flex-direction: column;
+
+  .border{
+    width: 100%;
+    background-color:#eee;
+    height: 1px;
+  }
 
   .scrap-title {
     font-weight: 700;
     font-size: 17px;
-    margin: 0 0 20px 0;
+
+    .scrap-cate {
+      width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 50px;
+      justify-content: center;
+      padding:20px 0;
+
+      li {
+        font-size: 16px;
+        border-radius: 30px;
+        font-weight: 600;
+      }
+    }
   }
 
-  ul {
+  .scrap-search {
+    width: 600px;
+    margin: 0 auto;
+
+    border: 1px solid #eee;
+    background: #f8f8f8;
+    height: 50px;
+    border-radius: 30px;
+
+    input {
+      width: 100%;
+      height: 100%;
+      padding: 0 20px;
+
+      &::placeholder {
+        font-size: 15px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .scrap-list {
+    width: 1400px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
@@ -101,7 +164,7 @@ const store = useCommonStore()
       overflow: hidden;
 
       .image {
-        width: 32%;
+        width: 30%;
         aspect-ratio: 1/1;
         overflow: hidden;
         position: relative;
@@ -116,7 +179,7 @@ const store = useCommonStore()
       }
 
       .explain {
-        width: 68%;
+        width: 70%;
         padding: 5px 0;
 
         .sub {
@@ -226,7 +289,7 @@ const store = useCommonStore()
 @include iphone {
   .scrap-wrap {
     .scrap-title {
-        font-size: 15px;
+      font-size: 15px;
     }
   }
 }

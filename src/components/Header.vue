@@ -118,8 +118,7 @@ watch(route, (ov,nv) => {
 
 .header-wrap {
   width: 100%;
-  background: #f8f8f8;
-  
+  background: #f8f8f8;  
   .header-bg{
     display: none;
   }
