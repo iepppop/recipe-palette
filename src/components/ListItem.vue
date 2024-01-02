@@ -284,9 +284,9 @@ const movePage = (item) => {
           .tag {
             font-size: 12px;
             font-weight: 600;
-            color: #f89606;
+            color: rgb(162, 78, 0);
             margin: 0 0 10px 0;
-            background: #fef0db;
+            background: rgb(243, 222, 202);
             width: max-content;
             padding: 4px 7px 3px 7px;
             border-radius: 5px;

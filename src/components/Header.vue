@@ -100,19 +100,16 @@ const searchTxt = ref('')
 
 const toggleMenu = () => {
   isOpen.value = !isOpen.value
-  if (isOpen.value && window.innerWidth <= 1400) {
-    document.body.style.overflow = 'hidden'
-  } else {
-    document.body.style.overflow = 'auto'
-  }
+  document.body.style.overflow = isOpen.value ? 'hidden'  : 'auto'
 }
 
 const movePage = () => {
   router.push({ name: 'scrap'})
 }
 
-watch(route, () => {
-  isOpen.value = false
+watch(route, (ov,nv) => {
+  isOpen.value = false;
+  document.body.style.overflow = isOpen.value ? 'hidden'  : 'auto'
 })
 
 </script>
