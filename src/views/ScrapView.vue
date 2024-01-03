@@ -1,22 +1,29 @@
 <template>
   <div class="scrap-wrap">
-    <div class="nolist" v-show="store.recipeArr.length === 0">
-      스크랩에 저장된 레시피가 없습니다.
-    </div>
-    <div class="scrap-search">
-      <input type="text" placeholder="보관함 내 검색" />
-    </div>
-    <div class="border" style="margin:25px 0 0 0"></div>
     <div class="scrap-title">
-      <ul class="scrap-cate">
-        <li>전체</li>
+      <div class="scrap-cate-search-wrap">
+        <div class="scrap-cate-wrap" :style="{ height: `${menuHeight}`}">
+          <ul class="scrap-cate" ref="cateList" >
+        <li @click="toggleMenu">전체<span><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#2e2e2e" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg></span></li>
         <li v-for="item in categoryList" :key="item">
           {{ item.name }}
         </li>
       </ul>
+        </div>
+      <div class="scrap-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#000000" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+      <input type="text" placeholder="보관함 내 검색" />
     </div>
-    <div class="border" style="margin:0 0 25px 0"></div>
-    <!-- <div class="border" style="margin:0 0 25px 0"></div> -->
+  </div>
+  <div class="order">
+      <button>최신순</button>
+      <span></span>
+      <button>오래된순</button>
+    </div>
+    </div>
+    <div class="nolist" v-show="store.recipeArr.length === 0">
+      스크랩에 저장된 레시피가 없습니다.
+    </div>
     <ul class="scrap-list">
       <li v-for="item in store.recipeArr" :key="item.RCP_NM">
         <div class="image">
@@ -92,6 +99,17 @@ const categoryList = ref([
   { name: '후식', link: '후식' },
   { name: '일품', link: '일품' }
 ])
+
+const cateList = ref(null)
+const isOPenMenu  = ref(false)
+const menuHeight = ref(40);
+
+
+const toggleMenu = () => {
+  isOPenMenu.value = !isOPenMenu.value;
+  if(isOPenMenu.value) menuHeight.value = `${cateList.value.clientHeight}px`;
+  else menuHeight.value = '40px'
+}
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';
@@ -99,52 +117,102 @@ const categoryList = ref([
 .scrap-wrap {
   display: flex;
   flex-direction: column;
-
-  .border{
-    width: 100%;
-    background-color:#eee;
-    height: 1px;
-  }
+  width: 1400px;
+  margin: 0 auto;
 
   .scrap-title {
     font-weight: 700;
     font-size: 17px;
+    display:flex;
+    justify-content: flex-end;
+    position: relative;
+    margin:20px 0 25px 0;
 
-    .scrap-cate {
-      width: 1400px;
-      margin: 0 auto;
+    .order{
       display: flex;
-      gap: 50px;
-      justify-content: center;
-      padding:20px 0;
+      gap:10px;
+      align-items: center;
 
-      li {
-        font-size: 16px;
-        border-radius: 30px;
-        font-weight: 600;
+      button{
+        color:#5b5b5b;
+      }
+
+      span{
+          height:10px;
+          background:#abaaaa;
+          width:1px;
+          display: block;
+        }
+    }
+
+    .scrap-cate-search-wrap{
+    display: flex;
+    gap:10px;
+    position: absolute;
+    top:-12px;
+    left:0;
+
+    .scrap-cate-wrap{
+      height: 40px;
+      width: 200px;
+      overflow: hidden;
+      border:1px solid #eee;
+      border-radius: 5px;
+      transition: 0.3s ease-in-out;
+      z-index: 99;
+      background: #fff;
+
+      .scrap-cate{
+        width: 100%;
+
+        li{
+          line-height: 39px;
+          padding:0 20px;
+          display: flex;
+          justify-content:space-between;
+          font-size: 14px;
+          font-weight: 600;
+          position: relative;
+          cursor: pointer;
+          transition: 0.3s ease-in-out;
+
+          &:hover{
+            background:#f8f8f8
+          }
+
+          svg{
+            position: absolute;
+            right:20px;
+            top:50%;
+            transform: translate(0,-50%);
+          }
+        }
       }
     }
-  }
-
+  
   .scrap-search {
-    width: 600px;
     margin: 0 auto;
-
     border: 1px solid #eee;
     background: #f8f8f8;
-    height: 50px;
-    border-radius: 30px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding:0 20px;
+    width: 200px;
 
     input {
       width: 100%;
       height: 100%;
-      padding: 0 20px;
+      margin:0 0 0 10px;
 
       &::placeholder {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
       }
     }
+  }
+  }
   }
 
   .scrap-list {
@@ -152,7 +220,7 @@ const categoryList = ref([
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
+    gap: 10px;
 
     li {
       display: flex;
