@@ -20,9 +20,9 @@
 </div>
 <div class="no"></div>
   <div class="order">
-      <button>최신순</button>
+      <button @click="reverseArray('최신순')">최신순</button>
       <span></span>
-      <button>오래된순</button>
+      <button @click="reverseArray('오래된순')">오래된순</button>
     </div>
     </div>
     <div class="nolist" v-show="store.recipeArr.length === 0">
@@ -146,7 +146,16 @@ const updateList = () =>{
   changeName()
 }
 
+const reverseArray = (name) =>{
+  if(name==='오래된순'){
+    router.push({ name: 'scrap', query: { orderBy: 'oldest'}})
+  }else{
+    router.push({ name: 'scrap', query: { orderBy: 'latest'}})
+  }
+}
+
 onMounted(()=>{
+  updatedList.value = store.recipeArr.reverse()
   updateList()
 })
 
@@ -188,6 +197,7 @@ watch(route,()=>{
 
       button{
         color:#5b5b5b;
+        cursor: pointer;
       }
 
       span{
@@ -259,6 +269,7 @@ watch(route,()=>{
     display: flex;
     align-items: center;
     padding:0 20px;
+    width: 100%;
 
     input {
       width: 100%;
@@ -275,7 +286,7 @@ watch(route,()=>{
   }
 
   .scrap-list {
-    width: 1400px;
+    width: 100%;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -406,12 +417,71 @@ watch(route,()=>{
   .scrap-wrap {
     width: 100%;
     padding: 0 20px;
-    ul {
-      grid-template-columns: 1fr;
-      gap: 5px;
+    .scrap-title {
+      grid-template-columns: 1fr 1fr;
+
+      .no {
+        display: none;
+      }
+    }
+
+    .scrap-list{
+      grid-template-columns: 1fr 1fr;
     }
   }
 }
+
+@include laptopToTablet {
+  .scrap-wrap {
+    .scrap-title {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .scrap-list{
+      grid-template-columns: 1fr;
+    }
+  }
+  }
+
+  @include tabletToMobile {
+    .scrap-wrap {
+      padding: 0 15px;
+    .scrap-title {
+      grid-template-columns: 1fr;
+      .scrap-title-rel{
+      .scrap-cate-search-wrap{
+        grid-template-columns: 1fr;
+        gap:5px;
+        padding:0;
+      }
+      }
+
+      
+      .scrap-cate-wrap{
+          order:2
+        }
+
+        .scrap-search{
+          
+          input{
+            margin: 0 !important;;
+          }
+          svg{
+            order:2;
+          }
+        }
+
+      .order{
+        display:none;
+      }
+    }
+    
+    .scrap-list{
+      grid-template-columns: 1fr;
+      margin:60px 0 0 0;
+    }
+  }
+  }
 
 @include iphone {
   .scrap-wrap {
