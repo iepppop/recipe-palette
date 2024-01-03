@@ -1,11 +1,13 @@
 <template>
   <div class="scrap-wrap">
+    <span class="scrap-name">보관함</span>
     <div class="scrap-title">
+      <div class="scrap-title-rel">
       <div class="scrap-cate-search-wrap">
         <div class="scrap-cate-wrap" :style="{ height: `${menuHeight}`}">
           <ul class="scrap-cate" ref="cateList" >
-        <li @click="toggleMenu">전체<span><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#2e2e2e" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg></span></li>
-        <li v-for="item in categoryList" :key="item">
+        <li @click="toggleMenu">{{ activeButton }}<span><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#2e2e2e" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg></span></li>
+        <li v-for="item in updatedCategoryList" :key="item" @click="clickMenu(item)" v-show="activeButton !== item.name">
           {{ item.name }}
         </li>
       </ul>
@@ -15,6 +17,8 @@
       <input type="text" placeholder="보관함 내 검색" />
     </div>
   </div>
+</div>
+<div class="no"></div>
   <div class="order">
       <button>최신순</button>
       <span></span>
@@ -25,7 +29,7 @@
       스크랩에 저장된 레시피가 없습니다.
     </div>
     <ul class="scrap-list">
-      <li v-for="item in store.recipeArr" :key="item.RCP_NM">
+      <li v-for="item in updatedList" :key="item.RCP_NM">
         <div class="image">
           <span><img :src="item.ATT_FILE_NO_MK" :alt="item.RCP_NM" /></span>
         </div>
@@ -87,22 +91,29 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useCommonStore } from '../stores/common.js'
 
 const store = useCommonStore()
 
 const categoryList = ref([
+  { name: '전체', link: '전체' },
   { name: '밥', link: '밥' },
   { name: '국&찌개', link: '국' },
   { name: '반찬', link: '반찬' },
   { name: '후식', link: '후식' },
   { name: '일품', link: '일품' }
 ])
+const router = useRouter();
+const route = useRoute()
 
+const updatedCategoryList = ref([]);
 const cateList = ref(null)
 const isOPenMenu  = ref(false)
 const menuHeight = ref(40);
+const activeButton = ref(route.query.category || '전체');
+const updatedList = ref([])
 
 
 const toggleMenu = () => {
@@ -110,6 +121,38 @@ const toggleMenu = () => {
   if(isOPenMenu.value) menuHeight.value = `${cateList.value.clientHeight}px`;
   else menuHeight.value = '40px'
 }
+
+const clickMenu = (item) => {
+  activeButton.value = item.name
+  if(activeButton.value === '전체') router.push({ name: 'scrap'})
+  else router.push({ name: 'scrap', query: { category: item.name}})
+  toggleMenu()
+  updateList()
+}
+
+const changeName = () => {
+  if(activeButton.value !== '전체') updatedCategoryList.value = categoryList.value.filter((x)=> x.name !== route.query.category)
+  else updatedCategoryList.value = categoryList.value.filter((x)=> x.name !== '전체')
+}
+
+const updateList = () =>{
+  if(activeButton.value !== '전체'){
+    activeButton.value =  route.query.category;
+    updatedList.value = store.recipeArr.filter((x)=> x.RCP_PAT2 === route.query.category);
+  }
+  else {
+    updatedList.value = store.recipeArr
+  };
+  changeName()
+}
+
+onMounted(()=>{
+  updateList()
+})
+
+watch(route,()=>{
+  updateList()
+})
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';
@@ -120,6 +163,12 @@ const toggleMenu = () => {
   width: 1400px;
   margin: 0 auto;
 
+  .scrap-name{
+    font-size: 16px;
+    font-weight: 700;
+    margin:0 0 10px 0;
+  }
+
   .scrap-title {
     font-weight: 700;
     font-size: 17px;
@@ -127,10 +176,14 @@ const toggleMenu = () => {
     justify-content: flex-end;
     position: relative;
     margin:20px 0 25px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
 
     .order{
       display: flex;
       gap:10px;
+      justify-content: flex-end;
       align-items: center;
 
       button{
@@ -144,17 +197,23 @@ const toggleMenu = () => {
           display: block;
         }
     }
+    .scrap-title-rel{
+    position: relative;
+    width: 100%;
 
     .scrap-cate-search-wrap{
-    display: flex;
-    gap:10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:15px;
     position: absolute;
     top:-12px;
     left:0;
+    width: 100%;
+    padding:0 10px 0 0;
 
     .scrap-cate-wrap{
       height: 40px;
-      width: 200px;
+      width: 100%;
       overflow: hidden;
       border:1px solid #eee;
       border-radius: 5px;
@@ -188,6 +247,7 @@ const toggleMenu = () => {
           }
         }
       }
+      }
     }
   
   .scrap-search {
@@ -199,7 +259,6 @@ const toggleMenu = () => {
     display: flex;
     align-items: center;
     padding:0 20px;
-    width: 200px;
 
     input {
       width: 100%;
