@@ -180,7 +180,7 @@ onMounted(()=>{
 
 watch(route,()=>{
   updateList()
-  reverseArray( arrayTypeBtn.value)
+  reverseArray()
 })
 </script>
 <style lang="scss">
@@ -509,9 +509,31 @@ watch(route,()=>{
 
 @include iphone {
   .scrap-wrap {
+    padding:0;
+    .scrap-name{
+      padding:0 15px;
+    }
     .scrap-title {
       font-size: 15px;
+      padding:0 15px;
     }
+    .scrap-list {
+    li {
+      border:none;
+      border-top:1px solid #eee;
+      border-radius: 0px;
+      padding:15px;
+      
+      .image {
+        
+      }
+
+      .explain {
+   
+      }
+    }
+  
+}
   }
 }
 </style>
