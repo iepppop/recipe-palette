@@ -14,15 +14,15 @@
         </div>
       <div class="scrap-search">
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#000000" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
-      <input type="text" placeholder="보관함 내 검색" />
+      <input type="text" placeholder="보관함 내 검색" :value="inputValue" @input="handleInputChange"/>
     </div>
   </div>
 </div>
 <div class="no"></div>
   <div class="order">
-      <button @click="reverseArray('최신순')">최신순</button>
+      <button @click="reverseArray('최신순')" :class="arrayTypeBtn === '최신순' && 'active'">최신순</button>
       <span></span>
-      <button @click="reverseArray('오래된순')">오래된순</button>
+      <button @click="reverseArray('오래된순')" :class="arrayTypeBtn === '오래된순' && 'active'">오래된순</button>
     </div>
     </div>
     <div class="nolist" v-show="store.recipeArr.length === 0">
@@ -114,6 +114,8 @@ const isOPenMenu  = ref(false)
 const menuHeight = ref(40);
 const activeButton = ref(route.query.category || '전체');
 const updatedList = ref([])
+const arrayTypeBtn = ref('최신순');
+const inputValue = ref('');
 
 
 const toggleMenu = () => {
@@ -146,21 +148,39 @@ const updateList = () =>{
   changeName()
 }
 
-const reverseArray = (name) =>{
-  if(name==='오래된순'){
-    router.push({ name: 'scrap', query: { orderBy: 'oldest'}})
-  }else{
-    router.push({ name: 'scrap', query: { orderBy: 'latest'}})
+const reverseArray = (name) => {
+  arrayTypeBtn.value = name;
+  const query = { orderBy: arrayTypeBtn.value };
+
+  if (name === '오래된순') {
+    updatedList.value.sort((a, b) => new Date(a.date) - new Date(b.date));
+  } else {
+    updatedList.value.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
+
+  if (route.query.category) {
+    query.category = route.query.category;
+  }
+
+  router.push({ name: 'scrap', query });
+};
+
+const handleInputChange = (e) => {
+  inputValue.value = e.target.value
+  updatedList.value = store.recipeArr.filter((item)=> item.RCP_NM.includes(inputValue.value))
 }
 
 onMounted(()=>{
   updatedList.value = store.recipeArr.reverse()
+  router.push({
+      query: { orderBy: 'latest' },
+   })
   updateList()
 })
 
 watch(route,()=>{
   updateList()
+  reverseArray( arrayTypeBtn.value)
 })
 </script>
 <style lang="scss">
@@ -198,6 +218,10 @@ watch(route,()=>{
       button{
         color:#5b5b5b;
         cursor: pointer;
+
+        &.active{
+          font-weight: 600;
+        }
       }
 
       span{
