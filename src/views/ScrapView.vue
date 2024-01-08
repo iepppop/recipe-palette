@@ -149,6 +149,7 @@ const updateList = () =>{
 }
 
 const reverseArray = (name) => {
+  updateList()
   arrayTypeBtn.value = name;
   const query = { orderBy: arrayTypeBtn.value };
 
@@ -171,7 +172,7 @@ const handleInputChange = (e) => {
 }
 
 onMounted(()=>{
-  updatedList.value = store.recipeArr.reverse()
+  // updatedList.value = store.recipeArr.reverse()
   router.push({
       query: { orderBy: 'latest' },
    })
@@ -179,9 +180,10 @@ onMounted(()=>{
 })
 
 watch(route,()=>{
-  updateList()
-  reverseArray()
+  reverseArray(route.query.orderBy || '최신순')
 })
+
+
 </script>
 <style lang="scss">
 @import '@/assets/_mixin.scss';
@@ -523,13 +525,13 @@ watch(route,()=>{
       border-top:1px solid #eee;
       border-radius: 0px;
       padding:15px;
-      
+
       .image {
-        
+        width: 40%;
       }
 
       .explain {
-   
+        width: 60%;
       }
     }
   
