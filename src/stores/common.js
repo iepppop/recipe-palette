@@ -52,6 +52,7 @@ export const useCommonStore = defineStore('common', () => {
 
   const saveRecipe = (item) => {
     item.isDuplicate = true
+    item.date = new Date();
     recipeArr.value.push(item)
     window.localStorage.setItem('my-recipe', JSON.stringify(recipeArr.value))
   }
