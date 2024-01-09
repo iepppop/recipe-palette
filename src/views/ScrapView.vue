@@ -29,7 +29,7 @@
       스크랩에 저장된 레시피가 없습니다.
     </div>
     <ul class="scrap-list">
-      <li v-for="item in updatedList" :key="item.RCP_NM">
+      <li v-for="item in updatedList" :key="item.RCP_NM" @click="movePage(item)">
         <div class="image">
           <span><img :src="item.ATT_FILE_NO_MK" :alt="item.RCP_NM" /></span>
         </div>
@@ -117,6 +117,10 @@ const updatedList = ref([])
 const arrayTypeBtn = ref('최신순');
 const inputValue = ref('');
 
+const movePage = (item) => {
+    window.sessionStorage.setItem('info', JSON.stringify(item))
+    router.push({ name: 'food', params: { idx: item.RCP_SEQ } });
+}
 
 const toggleMenu = () => {
   isOPenMenu.value = !isOPenMenu.value;
@@ -146,6 +150,7 @@ const updateList = () =>{
     updatedList.value = store.recipeArr
   };
   changeName()
+  console.log(store.recipeArr)
 }
 
 const reverseArray = (name) => {
@@ -183,6 +188,9 @@ watch(route,()=>{
   reverseArray(route.query.orderBy || '최신순')
 })
 
+watch(store.recipeArr,()=>{
+  reverseArray()
+})
 
 </script>
 <style lang="scss">
