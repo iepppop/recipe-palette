@@ -6,7 +6,7 @@ export const useCommonStore = defineStore('common', () => {
   const axios = inject('$axios');
   const route = useRoute();
   const dataList = ref([]);
-  const recipeArr = ref(JSON.parse(window.localStorage.getItem('my-recipe')) || []);
+  const recipeArr = ref(JSON.parse(window.localStorage.getItem('my-recipe')).reverse() || []);
   const isLoading = ref(false);
   const totalPage = ref(1);
   const totalCount = ref(0);

@@ -130,8 +130,8 @@ const toggleMenu = () => {
 
 const clickMenu = (item) => {
   activeButton.value = item.name
-  if(activeButton.value === '전체') router.push({ name: 'scrap'})
-  else router.push({ name: 'scrap', query: { category: item.name}})
+  if(activeButton.value === '전체') router.push({ name: 'scrap', query:{ orderBy: '최신순'}})
+  else router.push({ name: 'scrap', query: { orderBy: '최신순', category: item.name}})
   toggleMenu()
   updateList()
 }
@@ -150,7 +150,6 @@ const updateList = () =>{
     updatedList.value = store.recipeArr
   };
   changeName()
-  console.log(store.recipeArr)
 }
 
 const reverseArray = (name) => {
@@ -164,10 +163,12 @@ const reverseArray = (name) => {
     updatedList.value.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
-  if (route.query.category) {
-    query.category = route.query.category;
-  }
+  // if(route.query.category){
+  //   query.category = route.query.category 
+  // }else{
 
+  // }
+  query.category = route.query.category || undefined;
   router.push({ name: 'scrap', query });
 };
 
@@ -177,19 +178,18 @@ const handleInputChange = (e) => {
 }
 
 onMounted(()=>{
-  // updatedList.value = store.recipeArr.reverse()
   router.push({
-      query: { orderBy: 'latest' },
+      query: { orderBy: '최신순', category: route.query.category },
    })
   updateList()
 })
 
 watch(route,()=>{
-  reverseArray(route.query.orderBy || '최신순')
+  reverseArray(route.query.orderBy)
 })
 
 watch(store.recipeArr,()=>{
-  reverseArray()
+  reverseArray(route.query.orderBy)
 })
 
 </script>
