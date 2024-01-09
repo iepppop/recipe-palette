@@ -411,35 +411,35 @@ watch(store.recipeArr,()=>{
           overflow: hidden;
         }
 
-        .side-dish {
-          color: var(--green);
-          background: #e7f7e7;
-        }
+        .tag {
+          font-size: 12px;
+          font-weight: 600;
+          margin: 0 0 10px 0;
+          color: rgb(162, 78, 0);
+          background: rgb(243, 222, 202);
+          width: max-content;
+          padding: 4px 7px 3px 7px;
+          border-radius: 5px;
 
-        .dessert {
+          &.dessert {
           color: #d576c2;
           background: #ffe6fa;
         }
 
-        .special {
+        &.side-dish {
+          color: var(--green);
+          background: #e7f7e7;
+        }
+
+        &.special {
           background: #ffeaea;
           color: #ff3338;
         }
 
-        .rice {
+        &.rice {
           background: #eeeeee;
           color: #7a7874;
         }
-
-        .tag {
-          font-size: 12px;
-          font-weight: 600;
-          color: #f89606;
-          margin: 0 0 10px 0;
-          background: #fef0db;
-          width: max-content;
-          padding: 4px 7px 3px 7px;
-          border-radius: 5px;
         }
       }
     }
