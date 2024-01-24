@@ -14,12 +14,12 @@
         </div>
       <div class="scrap-search">
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#000000" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
-      <input type="text" placeholder="보관함 내 검색" :value="inputValue" @input="handleInputChange"/>
+      <input type="text" placeholder="보관함 내 검색" :value="inputValue" @keyup.enter="handleInputChange"/>
     </div>
   </div>
 </div>
 <div class="no"></div>
-  <div class="order">
+  <div class="order" v-show="!isEmptyResult">
       <button @click="reverseArray('최신순')" :class="arrayTypeBtn === '최신순' && 'active'">최신순</button>
       <span></span>
       <button @click="reverseArray('오래된순')" :class="arrayTypeBtn === '오래된순' && 'active'">오래된순</button>
@@ -28,6 +28,13 @@
     <div class="nolist" v-show="store.recipeArr.length === 0">
       스크랩에 저장된 레시피가 없습니다.
     </div>
+    <div class="nolist" v-show="isEmptyResult">
+      검색 결과가 없습니다.
+    </div>
+    <div class="nolist" v-show="updatedList.length === 0">
+      스크랩한 레시피가 없습니다.
+    </div>
+    <div class="scrap-list-wrap">
     <ul class="scrap-list">
       <li v-for="item in updatedList" :key="item.RCP_NM" @click="movePage(item)">
         <div class="image">
@@ -89,6 +96,7 @@
       </li>
     </ul>
   </div>
+  </div>
 </template>
 <script setup>
 import { onMounted, ref, watch } from 'vue'
@@ -114,8 +122,9 @@ const isOPenMenu  = ref(false)
 const menuHeight = ref(40);
 const activeButton = ref(route.query.category || '전체');
 const updatedList = ref([])
-const arrayTypeBtn = ref('최신순');
+const arrayTypeBtn =  ref(route.query.orderBy || '최신순');
 const inputValue = ref('');
+const isEmptyResult = ref(false)
 
 const movePage = (item) => {
     window.sessionStorage.setItem('info', JSON.stringify(item))
@@ -134,6 +143,8 @@ const clickMenu = (item) => {
   else router.push({ name: 'scrap', query: { orderBy: '최신순', category: item.name}})
   toggleMenu()
   updateList()
+  inputValue.value = ''
+  isEmptyResult.value = false
 }
 
 const changeName = () => {
@@ -153,9 +164,8 @@ const updateList = () =>{
 }
 
 const reverseArray = (name) => {
-  updateList()
+  if(!route.query.search) updateList()
   arrayTypeBtn.value = name;
-  const query = { orderBy: arrayTypeBtn.value };
 
   if (name === '오래된순') {
     updatedList.value.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -163,33 +173,59 @@ const reverseArray = (name) => {
     updatedList.value.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
-  // if(route.query.category){
-  //   query.category = route.query.category 
-  // }else{
-
-  // }
-  query.category = route.query.category || undefined;
+  const query = {
+  orderBy: route.query.orderBy,
+  ...(route.query.category && { category: route.query.category }),
+  ...(route.query.search && { search: route.query.search }),
+};
   router.push({ name: 'scrap', query });
 };
 
 const handleInputChange = (e) => {
   inputValue.value = e.target.value
-  updatedList.value = store.recipeArr.filter((item)=> item.RCP_NM.includes(inputValue.value))
+  addSearch()
 }
 
+const addSearch = () => {
+  updatedList.value = route.query.category ?
+  store.recipeArr.filter((item)=> item.RCP_NM.includes(inputValue.value) && item.RCP_PAT2.includes(route.query.category))
+  :
+  store.recipeArr.filter((item)=> item.RCP_NM.includes(inputValue.value))
+
+  isEmptyResult.value = updatedList.value.length < 1 ? true : false;
+  const query = {
+  ...(route.query.orderBy && { orderBy: route.query.orderBy }),
+  ...(route.query.category && { category: route.query.category }),
+  search: inputValue.value,
+};
+  router.push({ name: 'scrap', query });
+}
+
+
 onMounted(()=>{
-  router.push({
-      query: { orderBy: '최신순', category: route.query.category },
-   })
-  updateList()
+  const query = {
+  ...(route.query.orderBy && { orderBy: route.query.orderBy }),
+  ...(route.query.category && { category: route.query.category }),
+  ...(route.query.search && { search: route.query.search })
+};
+
+  router.push({ name: 'scrap', query });
+  if(!route.query.search){
+    reverseArray(arrayTypeBtn.value)
+  }
+  else {
+    inputValue.value = route.query.search;
+    addSearch()
+    changeName()
+  }
 })
 
 watch(route,()=>{
-  reverseArray(route.query.orderBy)
+  if(!route.query.search) reverseArray(route.query.orderBy)
 })
 
 watch(store.recipeArr,()=>{
-  reverseArray(route.query.orderBy)
+ reverseArray(route.query.orderBy)
 })
 
 </script>
@@ -200,7 +236,16 @@ watch(store.recipeArr,()=>{
   display: flex;
   flex-direction: column;
   width: 1400px;
-  margin: 0 auto;
+  margin: 0 auto 50px auto;
+
+  .nolist{
+    height: 40vh;
+    min-height: 160px;
+    max-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .scrap-name{
     font-size: 16px;
@@ -351,7 +396,7 @@ watch(store.recipeArr,()=>{
       }
 
       .explain {
-        width: 70%;
+        flex: 1;
         padding: 5px 0;
 
         .sub {
@@ -461,6 +506,23 @@ watch(store.recipeArr,()=>{
 
     .scrap-list{
       grid-template-columns: 1fr 1fr;
+
+      li{
+        .image{
+          width: 30%;
+        }
+        .explain{
+          display:flex;
+          flex-direction:column;
+          justify-content: space-between;
+
+          .sub{
+            display:flex;
+            justify-content:flex-start;
+            width: 100%;
+          }
+        }
+      }
     }
   }
 }
@@ -527,23 +589,28 @@ watch(store.recipeArr,()=>{
       font-size: 15px;
       padding:0 15px;
     }
+    .scrap-list-wrap{
+      padding:0 15px;
     .scrap-list {
+      border:1px solid #eee;
+      border-radius: 5px;
     li {
       border:none;
       border-top:1px solid #eee;
       border-radius: 0px;
       padding:15px;
 
-      .image {
-        width: 40%;
+      &:first-child{
+        border:none;
       }
 
-      .explain {
-        width: 60%;
+      .image {
+        width: 30%;
       }
     }
   
 }
+    }
   }
 }
 </style>
