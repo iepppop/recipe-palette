@@ -104,10 +104,10 @@ const toggleMenu = () => {
 }
 
 const movePage = () => {
-  router.push({ name: 'scrap'})
+  router.push({ name: 'scrap', query: { orderBy:'최신순' }})
 }
 
-watch(route, (ov,nv) => {
+watch(route, () => {
   isOpen.value = false;
   document.body.style.overflow = isOpen.value ? 'hidden'  : 'auto'
 })
