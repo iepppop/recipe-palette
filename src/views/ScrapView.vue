@@ -224,9 +224,9 @@ watch(route,()=>{
   if(!route.query.search) reverseArray(route.query.orderBy)
 })
 
-watch(store.recipeArr,()=>{
- reverseArray(route.query.orderBy)
-})
+watch(() => store.recipeArr.length, () => {
+  reverseArray(route.query.orderBy);
+}, { deep: true });
 
 </script>
 <style lang="scss">
