@@ -3,13 +3,13 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 </script>
 <template>
-  <div>
   <Header />
+  헤더
   <div class="main">
+    메인안
     <RouterView />
   </div>
   <Footer />
-</div>
 </template>
 <style lang="scss">
 @import '@/assets/main.scss';
