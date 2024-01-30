@@ -381,7 +381,7 @@ watch(() => store.recipeArr.length, () => {
       overflow: hidden;
 
       .image {
-        width: 30%;
+        width: 200px;
         aspect-ratio: 1/1;
         overflow: hidden;
         position: relative;
@@ -391,6 +391,10 @@ watch(() => store.recipeArr.length, () => {
           position: absolute;
           width: 100%;
           height: 100%;
+          top:50%;
+          box-sizing: border-box;
+          left:50%;
+          transform: translate(-50%,-50%);
           object-fit: cover;
         }
       }
@@ -509,7 +513,7 @@ watch(() => store.recipeArr.length, () => {
 
       li{
         .image{
-          width: 30%;
+          // width: 30%;
         }
         .explain{
           display:flex;
@@ -605,11 +609,26 @@ watch(() => store.recipeArr.length, () => {
       }
 
       .image {
-        width: 40%
+        width:140px;
       }
     }
-  
+    
+    } 
+    }
+  }
 }
+
+@include iphone {
+  .scrap-wrap {
+    .scrap-list-wrap{
+      .scrap-lis{
+        li{
+    .image {
+      width: 100px;
+      }
+
+    }
+    }
     }
   }
 }
