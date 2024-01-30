@@ -25,9 +25,9 @@
       <button @click="reverseArray('오래된순')" :class="arrayTypeBtn === '오래된순' && 'active'">오래된순</button>
     </div>
     </div>
-    <div class="nolist" v-show="store.recipeArr.length === 0">
+    <!-- <div class="nolist" v-show="store.recipeArr.length === 0">
       스크랩에 저장된 레시피가 없습니다.
-    </div>
+    </div> -->
     <div class="nolist" v-show="isEmptyResult">
       검색 결과가 없습니다.
     </div>
@@ -191,8 +191,11 @@ const addSearch = () => {
   store.recipeArr.filter((item)=> item.RCP_NM.includes(inputValue.value) && item.RCP_PAT2.includes(route.query.category))
   :
   store.recipeArr.filter((item)=> item.RCP_NM.includes(inputValue.value))
-
-  isEmptyResult.value = updatedList.value.length < 1 ? true : false;
+  console.log('aa')
+  if(router.query.search){
+    console.log('dd')
+    isEmptyResult.value = updatedList.value.length < 1 ? true : false;
+  }
   const query = {
   ...(route.query.orderBy && { orderBy: route.query.orderBy }),
   ...(route.query.category && { category: route.query.category }),
