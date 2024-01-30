@@ -381,7 +381,7 @@ watch(() => store.recipeArr.length, () => {
       overflow: hidden;
 
       .image {
-        width: 200px;
+        width: 130px;
         aspect-ratio: 1/1;
         overflow: hidden;
         position: relative;
