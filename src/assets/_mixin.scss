@@ -7,6 +7,12 @@
 }
 
 @mixin iphone {
+  @media (max-width: #{$breakpoint-liphone - 1px}) {
+    @content;
+  }
+}
+
+@mixin liphone {
   @media (max-width: #{$breakpoint-tabletToMobile - 1px}) {
     @content;
   }

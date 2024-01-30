@@ -512,9 +512,6 @@ watch(() => store.recipeArr.length, () => {
       grid-template-columns: 1fr 1fr;
 
       li{
-        .image{
-          // width: 30%;
-        }
         .explain{
           display:flex;
           flex-direction:column;
@@ -582,6 +579,21 @@ watch(() => store.recipeArr.length, () => {
     }
   }
   }
+
+@include liphone {
+  .scrap-wrap {
+    .scrap-list{
+      li{
+        .image{
+          width:125px;
+        }
+        .explain{
+      .sub{font-size:11px;}
+    }
+      }
+    }
+  }
+}  
 
 @include iphone {
   .scrap-wrap {
