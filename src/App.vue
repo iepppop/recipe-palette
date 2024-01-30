@@ -1,9 +1,6 @@
 <template>
   <Header />
-  헤더
   <div class="main">
-    <Header />
-    메인안
     <RouterView />
   </div>
   <Footer />
