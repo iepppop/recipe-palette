@@ -605,7 +605,7 @@ watch(() => store.recipeArr.length, () => {
       }
 
       .image {
-        width: 30%;
+        width: 40%
       }
     }
   
