@@ -1,16 +1,17 @@
-<script setup>
-import Header from '@/components/Header.vue'
-import Footer from '@/components/Footer.vue'
-</script>
 <template>
   <Header />
   헤더
   <div class="main">
+    <Header />
     메인안
     <RouterView />
   </div>
   <Footer />
 </template>
+<script setup>
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
+</script>
 <style lang="scss">
 @import '@/assets/main.scss';
 
